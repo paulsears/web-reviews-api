@@ -1,0 +1,12 @@
+.idea/
+.vscode/
+node_modules/
+coverage/
+build/
+dist/
+
+.DS_Store
+
+# Don't allow yarn or npm
+yarn.lock
+package-lock.json

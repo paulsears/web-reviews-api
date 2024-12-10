@@ -1,0 +1,42 @@
+{
+  "name": "apfm-nestjs-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "UNLICENSED",
+  "scripts": {
+    "_format:setup:prettier": "prettier 'src/**' 'test/**' '!**/*.sh'",
+    "format:check": "pnpm run format:check:lint && pnpm run format:check:prettier",
+    "format:check:lint": "pnpm eslint .",
+    "format:check:prettier": "pnpm run _format:setup:prettier -c",
+    "format:fix:lint": "pnpm run format:check:lint --fix",
+    "format:fix:prettier": "pnpm run _format:setup:prettier -w",
+    "_test:setup": "APFM_LOG_LEVEL=silent NODE_ENV=test vitest --coverage",
+    "test:unit": "pnpm _test:setup run",
+    "test:unit:watch": "pnpm _test:setup watch"
+  },
+  "prettier": {
+    "printWidth": 120,
+    "trailingComma": "all",
+    "arrowParens": "always",
+    "endOfLine": "lf"
+  },
+  "devDependencies": {
+    "@aplaceformom/apfm-base-lint": "^1.0.0",
+    "@eslint/eslintrc": "^3.2.0",
+    "@eslint/js": "^9.16.0",
+    "@stylistic/eslint-plugin": "^2.12.0",
+    "@types/node": "^22.10.1",
+    "@vitest/coverage-v8": "^2.1.8",
+    "@vitest/eslint-plugin": "^1.1.14",
+    "eslint": "^9.16.0",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.4.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.18.0",
+    "vitest": "^2.1.8"
+  }
+}
