@@ -1,0 +1,15 @@
+{
+  "sourceRoot": "src",
+  "compilerOptions": {
+    "plugins": [
+      {
+        "name": "@nestjs/swagger/plugin",
+        "options": {
+          "classValidatorShim": true
+        }
+      }
+    ],
+    "assets": ["**/*.yml", "**/*.json"],
+    "deleteOutDir": true
+  }
+}
