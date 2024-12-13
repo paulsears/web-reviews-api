@@ -1,0 +1,27 @@
+name: apfm-nestjs-template
+
+on: [pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      NODE_VERSION: 22
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build NestJS Application
+        uses: ./.github/actions/build
+        with:
+          nodeVersion: ${{ env.NODE_VERSION }}
+          nodeAuthToken: ${{ secrets.GITHUB_TOKEN }}
+          cache: 'pnpm'
+
+      - name: CI Checks
+        uses: ./.github/actions/ci-checks
+        with:
+          nodeVersion: ${{ env.NODE_VERSION }}
+          nodeAuthToken: ${{ secrets.GITHUB_TOKEN }}
+          cache: 'pnpm'

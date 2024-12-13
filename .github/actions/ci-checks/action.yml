@@ -1,0 +1,34 @@
+name: ci-checks
+description: CI static checks and testing
+
+inputs:
+  nodeVersion:
+    description: "Node.js version"
+    required: true
+  nodeAuthToken:
+    description: "Secret Node Auth Token"
+    required: true
+
+runs:
+  using: "composite"
+
+  steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup NodeJS
+      uses: ./.github/actions/setup-node
+      with:
+        nodeVersion: ${{ env.NODE_VERSION }}
+        nodeAuthToken: ${{ inputs.nodeAuthToken }}
+
+    - name: Linting
+      shell: bash
+      run: pnpm run format:check:lint
+
+    - name: Prettier
+      shell: bash
+      run: pnpm run format:check:prettier
+
+    - name: Tests
+      shell: bash
+      run: pnpm run test:unit

@@ -2,7 +2,8 @@
 .vscode/
 node_modules/
 coverage/
-build/
+/build/
+!*/build/
 dist/
 
 .DS_Store

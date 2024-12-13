@@ -1,0 +1,27 @@
+name: build
+description: Setup node environment
+
+inputs:
+  nodeVersion:
+    description: "Node.js version"
+    required: true
+  nodeAuthToken:
+    description: "Secret Node Auth Token"
+    required: true
+
+runs:
+  using: "composite"
+
+  steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup NodeJS
+      uses: ./.github/actions/setup-node
+      with:
+        nodeVersion: ${{ env.NODE_VERSION }}
+        nodeAuthToken: ${{ inputs.nodeAuthToken }}
+        cache: 'pnpm'
+
+    - name: Build
+      shell: bash
+      run: pnpm run build

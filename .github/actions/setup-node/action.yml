@@ -1,0 +1,34 @@
+name: setup-node
+description: Setup node environment
+
+inputs:
+  nodeVersion:
+    description: "Node.js version"
+    required: true
+  nodeAuthToken:
+    description: "Secret Node Auth Token"
+    required: true
+
+runs:
+  using: "composite"
+
+  steps:
+    - uses: actions/checkout@v4
+
+    - name: Install pnpm
+      uses: pnpm/action-setup@v4
+      with:
+        version: 9
+        cache: 'pnpm'
+
+    - name: Use Node.js ${{ inputs.nodeVersion }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.nodeVersion }}
+        cache: 'pnpm'
+
+    - name: Install dependencies
+      shell: bash
+      run: pnpm install
+      env:
+        NODE_AUTH_TOKEN: ${{ inputs.nodeAuthToken }}
