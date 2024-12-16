@@ -4,6 +4,8 @@ import * as compression from "compression";
 import { applicationConfig } from "./config";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import { INestApplication } from "@nestjs/common";
+import { ResponseDecorator } from "./middleware/response-decorator";
+import { DateTime } from "./service/date-time";
 
 const setupSwagger = (app: INestApplication) => {
   const options = new DocumentBuilder()
@@ -22,8 +24,10 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const config = applicationConfig;
+  const responseDecorator = new ResponseDecorator(new DateTime(), applicationConfig);
 
   setupSwagger(app);
+  app.useGlobalInterceptors(responseDecorator);
   app.use(compression());
   app.enableShutdownHooks();
 
