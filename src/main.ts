@@ -6,6 +6,7 @@ import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import { INestApplication } from "@nestjs/common";
 import { ResponseDecorator } from "./middleware/response-decorator";
 import { DateTime } from "./service/date-time";
+import { expressLogger, Logger } from "@aplaceformom/apfm-logger-typescript";
 
 const setupSwagger = (app: INestApplication) => {
   const options = new DocumentBuilder()
@@ -21,10 +22,16 @@ const setupSwagger = (app: INestApplication) => {
 };
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: ["error", "debug", "log"],
+  });
 
   const config = applicationConfig;
-  const responseDecorator = new ResponseDecorator(new DateTime(), applicationConfig);
+  const logger = new Logger(applicationConfig.logger);
+  app.use(expressLogger(logger));
+  app.useLogger(logger);
+
+  const responseDecorator = new ResponseDecorator(logger, new DateTime(), applicationConfig);
 
   setupSwagger(app);
   app.useGlobalInterceptors(responseDecorator);

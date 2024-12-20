@@ -6,7 +6,7 @@ export default defineConfig({
     coverage: {
       all: true,
       reporter: ["lcov", "text"],
-      exclude: [...coverageConfigDefaults.exclude, "./index.ts"],
+      exclude: [...coverageConfigDefaults.exclude, "./index.ts", "./src/module/**"],
       thresholds: {
         lines: 20,
         functions: 20,

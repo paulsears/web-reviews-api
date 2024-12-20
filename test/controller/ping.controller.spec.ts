@@ -1,21 +1,21 @@
 import { beforeAll, describe, expect, it } from "vitest";
-import { Test, TestingModule } from "@nestjs/testing";
 import { PingController } from "../../src/controller/ping.controller";
 import { BasicResponse } from "../../src/model/basic-response.entity";
+import { mock, Mock } from "@aplaceformom/mockfill";
+import { Logger } from "@aplaceformom/apfm-logger-typescript";
 
 describe("PingController", () => {
-  let app: TestingModule;
+  let logger: Mock<Logger>;
+  let controller: PingController;
 
   beforeAll(async () => {
-    app = await Test.createTestingModule({
-      controllers: [PingController],
-    }).compile();
+    logger = mock<Logger>();
+    controller = new PingController(logger);
   });
 
   describe("ping", () => {
     it("should return PingResponse", () => {
-      const ping = app.get<PingController>(PingController);
-      expect(ping.ping()).toBeInstanceOf(BasicResponse);
+      expect(controller.ping()).toBeInstanceOf(BasicResponse);
     });
   });
 });
