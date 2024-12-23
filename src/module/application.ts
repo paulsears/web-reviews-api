@@ -1,11 +1,12 @@
 import { Module } from "@nestjs/common";
 import { StatusModule } from "./status";
 import { LoggerModule } from "./logger";
+import { AppConfigModule } from "./app-config";
 
 @Module({
-  imports: [LoggerModule, StatusModule],
+  imports: [AppConfigModule, LoggerModule, StatusModule],
   controllers: [],
   providers: [],
-  exports: [LoggerModule],
+  exports: [AppConfigModule, LoggerModule],
 })
 export class AppModule {}

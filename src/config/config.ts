@@ -1,7 +1,7 @@
 import { ApfmLoggerConfigOptions, ExpressMiddlewareOptions } from "@aplaceformom/apfm-logger-typescript";
 import { DEFAULT_STRING_VALUE } from "./constants";
 
-const APP_NAME = process.env.APP_NAME || "NestJS-Template-App";
+const APP_NAME = process.env.APP_NAME || process.env.SERVICE_NAME || "NestJS-Template-App";
 const DEFAULT_APPLICATION_PORT = 3000;
 const APPLICATION_PORT = process.env.PORT || DEFAULT_APPLICATION_PORT.toString();
 
@@ -25,9 +25,9 @@ export const config: Config = {
   apiVersion: "1.0.0",
   logger: {
     serviceName: APP_NAME,
-    serviceVersion: process.env.APP_VERSION || DEFAULT_STRING_VALUE,
+    serviceVersion: process.env.APP_VERSION || process.env.SERVICE_VERSION || DEFAULT_STRING_VALUE,
   },
   expressLogger: {
-    ignoreUrlPaths: ["/health", "/ping"],
+    ignoreUrlPaths: ["/ping", "/health"],
   },
 };

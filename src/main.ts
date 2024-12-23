@@ -28,7 +28,7 @@ async function bootstrap() {
 
   const config = applicationConfig;
   const logger = new Logger(applicationConfig.logger);
-  app.use(expressLogger(logger));
+  app.use(expressLogger(logger, applicationConfig.expressLogger));
   app.useLogger(logger);
 
   const responseDecorator = new ResponseDecorator(logger, new DateTime(), applicationConfig);
