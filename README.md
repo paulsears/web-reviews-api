@@ -76,12 +76,17 @@ class constructor:
 
 * `APP_NAME` : name of the application
 * `APP_VERSION` : Version of the application. Recommend using GitSha or github release version
+* `NEW_RELIC_APP_NAME` : Application name in NewRelic. This will vary by ENV, and will likely be `APP_NAME-ENV`. Example: `my-app-prod` for production, or `my-app-qa` for QA.
+* `NEW_RELIC_LICENSE_KEY`: The New Relic License Key
 
 #### Optional
 
 * `APFM_LOG_LEVEL` : Optional : String : default `info`. Valid values "trace", "verbose", "debug", "info", "warn", "error", "silent", "fatal"
 * `APFM_LOGGER_JSON` : Optional : Boolean : Log as JSON (default) or plain text. Useful for local development. `true` for json logging, `false` for plain text.
 * `PORT`: Optional: Integer : Default = 3000
+* `NEW_RELIC_LOG_LEVEL`: New Relic's log level. Default `info`. It is recommended to not change this.
+* `NEW_RELIC_ERROR_COLLECTOR_IGNORE_ERROR_CODES`: Which API Status codes NewRelic will alert as Errors. It is RECOMMENDED that this be set to ignore 4xx errors, which are client errors.
+  * Recommendation: `400, 401, 402, 403, 404, 405, 406, 408, 409, 410, 411, 412, 413, 414, 415, 416, 417, 418, 429`
 
 ## Running
 
@@ -93,6 +98,14 @@ pnpm run start:dev
 
 This will start the application up in watch mode, so that as files change the application will restart.
 It will also set any required ENV variables and set logging to `debug`.
+
+Running the application in AWS production:
+
+```bash
+pnpm run start:prod
+```
+
+This will start the application with NewRelic. The required ENV vars must be set.
 
 ## Swagger Documentation
 
