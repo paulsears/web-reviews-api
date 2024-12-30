@@ -6,6 +6,13 @@ An opinionated, batteries included, template for rapidly building and deploying 
 that includes support for GraphQL, Dependency Injection, Swagger, Scheduling (Cron), and many other features that we
 would otherwise have to build ourselves.
 
+Features:
+
+* Logger logs in a standard cross application manor, improving cross application searching
+* Http Client with Retries and correlation id support
+* Standard Response Decorator, to improve standards across APFM applications
+* Status Endpoints
+
 ## Local Development
 
 Required:

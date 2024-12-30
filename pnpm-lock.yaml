@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@aplaceformom/apfm-http-client':
+        specifier: 0.0.1
+        version: 0.0.1(@nestjs/common@10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))
       '@aplaceformom/apfm-logger-typescript':
         specifier: 0.0.3
         version: 0.0.3(@nestjs/common@10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))
@@ -151,8 +154,18 @@ packages:
   '@aplaceformom/apfm-base-lint@1.0.0':
     resolution: {integrity: sha512-ugyzqJesM17zioOjoYBDNdReJFeQds03dUtNYs5YYzn/zNMmwz5/2PmSa6IU/lK8Lm+Gkt6wXttyshQyihJfxw==, tarball: https://npm.pkg.github.com/download/@aplaceformom/apfm-base-lint/1.0.0/009953c8bc97ddc8fe28a2eb8f9215d74907dcf6}
 
+  '@aplaceformom/apfm-http-client@0.0.1':
+    resolution: {integrity: sha512-0jQj318NljgcnF+V9/v24R16XasyK3BuioymVLKm1tcecD34htbeQO6GZzjuDyv7uE+J6tEN1106yIBqBpab/A==, tarball: https://npm.pkg.github.com/download/@aplaceformom/apfm-http-client/0.0.1/cfc187a557215ea5684e539235ddc65416b91761}
+    peerDependencies:
+      '@nestjs/common': ^10.4.15
+
   '@aplaceformom/apfm-logger-typescript@0.0.3':
     resolution: {integrity: sha512-66m2GzHev4EwT3GOR0bMM4GXjBdFtR3er9In7+6rbS9EQFJuPxa2BI5hwDVuWUklOfqAzfxMVN93JyPyC0y4Sw==, tarball: https://npm.pkg.github.com/download/@aplaceformom/apfm-logger-typescript/0.0.3/fd94eb44f34eb07c7d7df9eeb6aa329d54c4edd0}
+    peerDependencies:
+      '@nestjs/common': ^10.4.15
+
+  '@aplaceformom/apfm-logger-typescript@0.0.3-beta.96729920':
+    resolution: {integrity: sha512-nM73+JoyHeCJsr4SoacCPOwVq0uRMth3v/Lk3k9ZlMpUHeVpQOkzSmOPf9g3vaYu9VuDE4oSGCjSYBcoKXR/qw==, tarball: https://npm.pkg.github.com/download/@aplaceformom/apfm-logger-typescript/0.0.3-beta.96729920/e43af420ab9b0af9b169fa5c5a37dc04a96e16d4}
     peerDependencies:
       '@nestjs/common': ^10.4.15
 
@@ -3382,7 +3395,23 @@ snapshots:
 
   '@aplaceformom/apfm-base-lint@1.0.0': {}
 
+  '@aplaceformom/apfm-http-client@0.0.1(@nestjs/common@10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))':
+    dependencies:
+      '@aplaceformom/apfm-base-lint': 1.0.0
+      '@aplaceformom/apfm-logger-typescript': 0.0.3-beta.96729920(@nestjs/common@10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))
+      '@nestjs/common': 10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1)
+      axios: 1.7.9
+    transitivePeerDependencies:
+      - debug
+
   '@aplaceformom/apfm-logger-typescript@0.0.3(@nestjs/common@10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))':
+    dependencies:
+      '@nestjs/common': 10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1)
+      on-finished: 2.4.1
+      pino: 9.5.0
+      url: 0.11.4
+
+  '@aplaceformom/apfm-logger-typescript@0.0.3-beta.96729920(@nestjs/common@10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))':
     dependencies:
       '@nestjs/common': 10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1)
       on-finished: 2.4.1
