@@ -1,9 +1,9 @@
 import { beforeAll, describe, expect, it } from "vitest";
-import { PingController } from "../../src/controller/ping.controller";
-import { BasicResponse } from "../../src/model/basic-response.entity";
+import { PingController } from "../../../../src/module/status/controller/ping.controller";
 import { mock, Mock } from "@aplaceformom/mockfill";
 import { Logger } from "@aplaceformom/apfm-logger-typescript";
-import { Config } from "../../src/config/config";
+import { BasicResponse } from "../../../../src/module/common/model/basic-response.entity";
+import { Config } from "../../../../src/config/config";
 
 describe("PingController", () => {
   let logger: Mock<Logger>;

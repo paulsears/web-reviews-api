@@ -1,6 +1,6 @@
 # APFM NestJS Template
 
-An opinionated, batteries included, template for rapidly building and deploying a new NestJS applications at A Place For Mom.
+An opinionated, batteries included, template for rapidly building and deploying new NestJS applications at A Place For Mom.
 
 [NestJS](https://nestjs.com/) is a TypeScript framework that can be used for both API and backend worker services,
 that includes support for GraphQL, Dependency Injection, Swagger, Scheduling (Cron), and many other features that we
@@ -12,6 +12,16 @@ Features:
 * Http Client with Retries and correlation id support
 * Standard Response Decorator, to improve standards across APFM applications
 * Status Endpoints
+
+## APFM Modules Used
+
+The following APFM developed modules are included in this repo. When expanding functionality or fixing bugs in these areas
+please consider submitting a pull request to the appropriate module so that everyone using this template can benefit.
+
+* [DateTime](https://github.com/aplaceformom/apfm-datetime)
+* [HTTP Client](https://github.com/aplaceformom/apfm-http-client)
+* [Logger](https://github.com/aplaceformom/apfm-logger-typescript)
+* [MockFill](https://github.com/aplaceformom/mockfill)
 
 ## Local Development
 
@@ -45,22 +55,39 @@ pnpm install
 ## Project Structure
 
 There are 2 common ways to setup a NestJS application. By Module and by file type. We've chosen to structure the
-project so that each type of file is under its own directory. We've found this to be less confusing than structuring
-a project by individual modules.
+project by module so that each module is a self contained feature. This allows us to more easily separate features that
+are added to a project from original template code, allowing teams to more easily update the underlying template.
 
 ```text
 ./src
   config      : All files related to application configuration
-  controller  : All controller files. Files should not have business logic
-  middleware  : All express middleware files
-  model       : Models and Types that are used, including entities and DTOs
-    dto       : Any types that are used for POST requests
-  module      : Module definitions
-  service     : All Services files. Business logic should be here.
-  util        : common utilities
-  validator   : Validation Pipes
+  module      : Application Module lives in the root
+    common    : Features / modules that are commonly used across modules
+      model   : Base responses, entities, types, and models that are common to all modules
+      util    : common utilities that will be used across modules
+    example   : An example module
+    status    : Default status information about the project, such as a ping and health-check endpoints
+    %feature% : Feature Modules
+
 ./test        : Tests are here based on directory structure above.
+  module      :
+    %feature% : Your modules feature tests go here. Continue the directory structure down.
 ```
+
+The Feature module directory should look like:
+
+```text
+feature-name
+   controller : All API Controllers
+   middleware : Any Express middleware that is needed for the feature
+   model      : Any models that are required
+     dto      : Any Data Transformation Objects. These are the inputs from POST / mutation requests, and provide any logic for transformation
+   service    : Any services that the module needs
+   util       : Any utility functions and classes that the module needs
+   module.ts  : the module definition that will be included into the `application.ts` module.
+```
+
+**NOTE** You can have many feature modules in a project. They should be logically separated for organization.
 
 ## Configuration
 

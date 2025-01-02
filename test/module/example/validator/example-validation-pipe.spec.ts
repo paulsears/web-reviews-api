@@ -1,8 +1,8 @@
 import { BadRequestException } from "@nestjs/common";
 import { IsOptional, IsString } from "class-validator";
 import { beforeEach, describe, expect, it } from "vitest";
-import { ExampleValidationPipe } from "../../src/validator/example-validation-pipe";
-import { expectToThrow } from "../testing-utils/expect-to-throw";
+import { ExampleValidationPipe } from "../../../../src/module/example/validator/example-validation-pipe";
+import { expectToThrow } from "../../../testing-utils/expect-to-throw";
 
 describe("BasicPostValidationPipe", () => {
   let pipe: ExampleValidationPipe;

@@ -1,11 +1,11 @@
-import { beforeEach, describe, expect, it } from "vitest";
-import { mock, Mock, verify } from "@aplaceformom/mockfill";
-import { HealthCheckController } from "../../src/controller/health-check.controller";
-import { HealthCheckService } from "../../src/service/health-check";
-import { HealthResponse } from "../../src/model/health.entity";
 import { Logger } from "@aplaceformom/apfm-logger-typescript";
-import { HealthCheckStatus } from "../../src/model/health-check-status.entity";
-import { HealthStatuses } from "../../src/model/health";
+import { mock, Mock, verify } from "@aplaceformom/mockfill";
+import { beforeEach, describe, expect, it } from "vitest";
+import { HealthStatuses } from "../../../../src/module/status/model/health";
+import { HealthResponse } from "../../../../src/module/status/model/health.entity";
+import { HealthCheckController } from "../../../../src/module/status/controller/health-check.controller";
+import { HealthCheckStatus } from "../../../../src/module/status/model/health-check-status.entity";
+import { HealthCheckService } from "../../../../src/module/status/service/health-check";
 
 describe("HealthCheckController", () => {
   let logger: Mock<Logger>;

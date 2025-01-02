@@ -1,9 +1,9 @@
+import { Logger } from "@aplaceformom/apfm-logger-typescript";
 import { Controller, Get } from "@nestjs/common";
 import { ApiResponse, ApiTags } from "@nestjs/swagger";
-import { STATUS_MESSAGE_INTERNAL_SERVER_ERROR } from "../config/constants";
+import { STATUS_MESSAGE_INTERNAL_SERVER_ERROR } from "../../../config/constants";
 import { HealthResponse } from "../model/health.entity";
 import { HealthCheckService } from "../service/health-check";
-import { Logger } from "@aplaceformom/apfm-logger-typescript";
 
 @ApiTags("status")
 @Controller("health")

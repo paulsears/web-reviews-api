@@ -1,6 +1,6 @@
 import { ApiExtraModels, ApiProperty } from "@nestjs/swagger";
 import { HealthCheckStatus } from "./health-check-status.entity";
-import { Response } from "./response.entity";
+import { Response } from "../../common/model/response.entity";
 
 @ApiExtraModels(Response)
 @ApiExtraModels(HealthCheckStatus)

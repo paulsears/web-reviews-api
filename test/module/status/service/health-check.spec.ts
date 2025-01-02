@@ -1,8 +1,8 @@
-import { beforeEach, describe, expect, it } from "vitest";
-import { HealthCheckService } from "../../src/service/health-check";
-import { mock, Mock } from "@aplaceformom/mockfill";
 import { Logger } from "@aplaceformom/apfm-logger-typescript";
-import { HealthCheckStatus } from "../../src/model/health-check-status.entity";
+import { mock, Mock } from "@aplaceformom/mockfill";
+import { beforeEach, describe, expect, it } from "vitest";
+import { HealthCheckStatus } from "../../../../src/module/status/model/health-check-status.entity";
+import { HealthCheckService } from "../../../../src/module/status/service/health-check";
 
 describe("HealthCheckService", () => {
   let logger: Mock<Logger>;

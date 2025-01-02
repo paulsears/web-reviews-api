@@ -1,14 +1,15 @@
 import { Module } from "@nestjs/common";
-import { StatusModule } from "./status";
-import { LoggerModule } from "./logger";
-import { AppConfigModule } from "./app-config";
-import { HttpClientModule } from "./http-client";
-import { ExampleModule } from "./example";
+import { AppConfigModule } from "./common/modules/app-config";
+import { DateTimeModule } from "./common/modules/date-time";
+import { HttpClientModule } from "./common/modules/http-client";
+import { LoggerModule } from "./common/modules/logger";
+import { ExampleModule } from "./example/module";
+import { StatusModule } from "./status/module";
 
 @Module({
-  imports: [AppConfigModule, ExampleModule, HttpClientModule, LoggerModule, StatusModule],
+  imports: [AppConfigModule, DateTimeModule, ExampleModule, HttpClientModule, LoggerModule, StatusModule],
   controllers: [],
   providers: [],
-  exports: [AppConfigModule, HttpClientModule, LoggerModule],
+  exports: [AppConfigModule, DateTimeModule, HttpClientModule, LoggerModule],
 })
 export class AppModule {}

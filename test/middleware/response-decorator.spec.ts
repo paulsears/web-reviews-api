@@ -2,10 +2,10 @@ import { ArgumentsHost, HttpException } from "@nestjs/common";
 import { Request, Response } from "express";
 import { beforeEach, describe, expect, it } from "vitest";
 import { config } from "../../src/config/config";
-import { ResponseDecorator } from "../../src/middleware/response-decorator";
-import { DateTime } from "../../src/service/date-time";
 import { mock, Mock, verify } from "@aplaceformom/mockfill";
 import { Logger } from "@aplaceformom/apfm-logger-typescript";
+import { ResponseDecorator } from "../../src/module/common/middleware/response-decorator";
+import { DateTime } from "@aplaceformom/apfm-datetime";
 
 describe("ResponseDecorator", () => {
   let middleware: ResponseDecorator<any>;

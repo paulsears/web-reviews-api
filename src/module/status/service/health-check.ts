@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { HealthCheckStatus } from "../model/health-check-status.entity";
 import { Logger } from "@aplaceformom/apfm-logger-typescript";
-import { HealthStatuses } from "../model/health";
+import { HealthStatuses } from "../../../module/status/model/health";
 
 @Injectable()
 export class HealthCheckService {

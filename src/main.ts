@@ -4,9 +4,9 @@ import * as compression from "compression";
 import { applicationConfig } from "./config";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import { INestApplication } from "@nestjs/common";
-import { ResponseDecorator } from "./middleware/response-decorator";
-import { DateTime } from "./service/date-time";
 import { expressLogger, Logger } from "@aplaceformom/apfm-logger-typescript";
+import { DateTime } from "@aplaceformom/apfm-datetime";
+import { ResponseDecorator } from "./module/common/middleware/response-decorator";
 
 const setupSwagger = (app: INestApplication) => {
   const options = new DocumentBuilder()

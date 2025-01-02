@@ -1,6 +1,6 @@
 import { Controller, Get } from "@nestjs/common";
 import { ExampleHttpClientUsage } from "../service/example-http-client-usage";
-import { BasicResponse } from "../model/basic-response.entity";
+import { BasicResponse } from "../../common/model/basic-response.entity";
 
 @Controller("example")
 export class ExampleController {

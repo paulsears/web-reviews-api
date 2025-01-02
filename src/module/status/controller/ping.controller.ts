@@ -1,9 +1,9 @@
 import { Controller, Get, Inject } from "@nestjs/common";
 import { ApiResponse, ApiTags } from "@nestjs/swagger";
-import { BasicResponse } from "../model/basic-response.entity";
-import { STATUS_MESSAGE_INTERNAL_SERVER_ERROR } from "../config/constants";
+import { BasicResponse } from "../../common/model/basic-response.entity";
+import { STATUS_MESSAGE_INTERNAL_SERVER_ERROR } from "../../../config/constants";
 import { Logger } from "@aplaceformom/apfm-logger-typescript";
-import { Config } from "../config/config";
+import { Config } from "../../../config/config";
 
 @ApiTags("status")
 @Controller("ping")
