@@ -41,7 +41,7 @@ export class ResponseDecorator<T> implements NestInterceptor<T, Response<T>>, Ex
     );
   }
 
-  public catch(error: Error, host: ArgumentsHost) {
+  public catch(error: Error, host: ArgumentsHost): any {
     const res = host.switchToHttp().getResponse();
     const status = error instanceof HttpException ? error.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
     res.status(status);
@@ -62,7 +62,7 @@ export class ResponseDecorator<T> implements NestInterceptor<T, Response<T>>, Ex
     return res.status(status).json(data);
   }
 
-  private assignMetadata(data: any, start: Date, time?: number, error?: Error) {
+  private assignMetadata(data: any, start: Date, time?: number, error?: Error): any {
     data.meta.build = this.config.appBuild;
     data.meta.name = this.config.appName;
     data.meta.version = this.config.appVersion;

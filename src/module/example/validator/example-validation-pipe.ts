@@ -4,7 +4,7 @@ import { validate } from "class-validator";
 
 @Injectable()
 export class ExampleValidationPipe implements PipeTransform<any> {
-  public async transform(value: any, { metatype }: ArgumentMetadata) {
+  public async transform(value: any, { metatype }: ArgumentMetadata): Promise<any> {
     if (!metatype || !this.toValidate(metatype)) {
       return value;
     }

@@ -29,7 +29,7 @@
     "endOfLine": "lf"
   },
   "devDependencies": {
-    "@aplaceformom/apfm-base-lint": "^1.0.0",
+    "@aplaceformom/apfm-base-lint": "^1.0.2",
     "@aplaceformom/mockfill": "^0.0.1",
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.16.0",

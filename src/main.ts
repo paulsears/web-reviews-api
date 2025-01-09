@@ -8,7 +8,7 @@ import { expressLogger, Logger } from "@aplaceformom/apfm-logger-typescript";
 import { DateTime } from "@aplaceformom/apfm-datetime";
 import { ResponseDecorator } from "./module/common/middleware/response-decorator";
 
-const setupSwagger = (app: INestApplication) => {
+const setupSwagger = (app: INestApplication): void => {
   const options = new DocumentBuilder()
     .setTitle(`${applicationConfig.appName} API Documentation`)
     .setDescription("")
@@ -21,7 +21,7 @@ const setupSwagger = (app: INestApplication) => {
   SwaggerModule.setup(applicationConfig.swaggerRoute, app, document);
 };
 
-async function bootstrap() {
+async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule, {
     logger: ["error", "debug", "log"],
   });

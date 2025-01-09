@@ -20,12 +20,12 @@ describe("HealthCheckController", () => {
 
   describe("health", () => {
     it("should return HealthCheckStatus", async () => {
-      healthService.retrieveServicesStatus = async () => [];
+      healthService.retrieveServicesStatus = async (): Promise<HealthCheckStatus[]> => [];
       expect(await controller.health()).toBeInstanceOf(HealthResponse);
     });
 
     it("logs an error if a service is not healthy", async () => {
-      healthService.retrieveServicesStatus = async () => [
+      healthService.retrieveServicesStatus = async (): Promise<HealthCheckStatus[]> => [
         new HealthCheckStatus("foo", HealthStatuses.ERROR, true, "I'm an error"),
       ];
       await controller.health();

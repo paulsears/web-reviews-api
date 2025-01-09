@@ -24,8 +24,8 @@ describe("ResponseDecorator", () => {
     host = {
       switchToHttp: () => {
         return {
-          getRequest: () => request,
-          getResponse: () => response,
+          getRequest: (): Request => request,
+          getResponse: (): Response => response,
         };
       },
     } as ArgumentsHost;
@@ -35,7 +35,7 @@ describe("ResponseDecorator", () => {
     it("should not return a status code for basic Error objects", () => {
       error = new Error();
       response = {
-        status: () => {
+        status: (): unknown => {
           return {
             json: () => undefined,
           };
@@ -49,7 +49,7 @@ describe("ResponseDecorator", () => {
     it("should return a status code for known HttpException types", () => {
       error = new HttpException("foo", 500);
       response = {
-        status: () => {
+        status: (): unknown => {
           return {
             json: () => 500,
           };

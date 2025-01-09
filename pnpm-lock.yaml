@@ -58,8 +58,8 @@ importers:
         version: 5.0.1(express@4.21.2)
     devDependencies:
       '@aplaceformom/apfm-base-lint':
-        specifier: ^1.0.0
-        version: 1.0.0
+        specifier: ^1.0.2
+        version: 1.0.2
       '@aplaceformom/mockfill':
         specifier: ^0.0.1
         version: 0.0.1
@@ -154,8 +154,8 @@ packages:
     resolution: {integrity: sha512-I5wviiIqiFwar9Pdk30Lujk8FczEEc18i22A5c6Z9lbmhPQdTroDnEQdsfXjy404wPe8H62s0I15o4pmMGfTYQ==}
     engines: {node: ^18.13.0 || >=20.9.0, npm: ^6.11.0 || ^7.5.6 || >=8.0.0, yarn: '>= 1.13.0'}
 
-  '@aplaceformom/apfm-base-lint@1.0.0':
-    resolution: {integrity: sha512-ugyzqJesM17zioOjoYBDNdReJFeQds03dUtNYs5YYzn/zNMmwz5/2PmSa6IU/lK8Lm+Gkt6wXttyshQyihJfxw==, tarball: https://npm.pkg.github.com/download/@aplaceformom/apfm-base-lint/1.0.0/009953c8bc97ddc8fe28a2eb8f9215d74907dcf6}
+  '@aplaceformom/apfm-base-lint@1.0.2':
+    resolution: {integrity: sha512-PFScyZdPJtSX9u+QvmuPcU0RgM15ifP6IyCKh0eEMbWorzN9foQOA00HdmzTiDrCwV2tL2VH+afmIrY/7DHAYQ==, tarball: https://npm.pkg.github.com/download/@aplaceformom/apfm-base-lint/1.0.2/999e3496d1455f5369b6e38b08a7fa35ab11ea57}
 
   '@aplaceformom/apfm-datetime@0.0.1':
     resolution: {integrity: sha512-hSsW4cVZK72AJzpBERtnNBV2yn5bXX+9tdMHC/RtPC2WqHEe5Vc/yEtuAaiPeaj+WQvMywKhmzaV9CrK2w3zsg==, tarball: https://npm.pkg.github.com/download/@aplaceformom/apfm-datetime/0.0.1/a8c77231e5d275a9a40e452a3e0318828d73d36a}
@@ -3401,16 +3401,16 @@ snapshots:
     transitivePeerDependencies:
       - chokidar
 
-  '@aplaceformom/apfm-base-lint@1.0.0': {}
+  '@aplaceformom/apfm-base-lint@1.0.2': {}
 
   '@aplaceformom/apfm-datetime@0.0.1(@nestjs/common@10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))':
     dependencies:
-      '@aplaceformom/apfm-base-lint': 1.0.0
+      '@aplaceformom/apfm-base-lint': 1.0.2
       '@nestjs/common': 10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1)
 
   '@aplaceformom/apfm-http-client@0.0.1(@nestjs/common@10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))':
     dependencies:
-      '@aplaceformom/apfm-base-lint': 1.0.0
+      '@aplaceformom/apfm-base-lint': 1.0.2
       '@aplaceformom/apfm-logger-typescript': 0.0.3-beta.96729920(@nestjs/common@10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))
       '@nestjs/common': 10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1)
       axios: 1.7.9
@@ -3433,7 +3433,7 @@ snapshots:
 
   '@aplaceformom/mockfill@0.0.1':
     dependencies:
-      '@aplaceformom/apfm-base-lint': 1.0.0
+      '@aplaceformom/apfm-base-lint': 1.0.2
 
   '@babel/code-frame@7.26.2':
     dependencies:
