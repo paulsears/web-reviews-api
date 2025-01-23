@@ -24,4 +24,6 @@ jobs:
         with:
           nodeVersion: ${{ env.NODE_VERSION }}
           nodeAuthToken: ${{ secrets.GITHUB_TOKEN }}
+          sonarToken: ${{ secrets.SONAR_TOKEN }}
+          sonarHostUrl: ${{ secrets.SONAR_HOST_URL }}
           cache: 'pnpm'

@@ -8,6 +8,13 @@ inputs:
   nodeAuthToken:
     description: "Secret Node Auth Token"
     required: true
+  sonarToken:
+    description: "Sonar Token"
+    required: true
+  sonarHostUrl:
+    description: "Sonar Host URL"
+    required: true
+
 
 runs:
   using: "composite"
@@ -32,3 +39,9 @@ runs:
     - name: Tests
       shell: bash
       run: pnpm run test:unit
+    
+    - name: SonarQube Scan
+      uses: sonarsource/sonarqube-scan-action@v4
+      env:
+        SONAR_TOKEN: ${{ inputs.sonarToken }}
+        SONAR_HOST_URL: ${{ inputs.sonarHostUrl }}

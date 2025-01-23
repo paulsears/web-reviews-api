@@ -153,3 +153,12 @@ NestJS's decorators.
 [NestJS Provides validation](https://docs.nestjs.com/techniques/validation) support for types being sent to APIs.
 
 Basic validation support with examples are provided in the `validators` directory and `example-cat.dto.ts` files.
+
+## SonarQube
+
+The github actions have SonarQube enabled to run on Pull Requests. When creating a repo with this template
+ change the `sonar.projectKey` in the `sonar-project.properties` file to the new project's name.
+
+Since we use <https://github.com/aplaceformom/mockfill> for testing we've added the verify function that it provides as an assert function.
+
+See [Documentation](https://aplaceformom.atlassian.net/wiki/spaces/DPLAT/pages/3455680513/Getting+Started) for more details
