@@ -11,3 +11,5 @@ dist/
 # Don't allow yarn or npm
 yarn.lock
 package-lock.json
+
+.env-local-dev-secrets

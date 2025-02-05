@@ -16,7 +16,7 @@
     "format:fix:lint": "pnpm run format:check:lint --fix",
     "format:fix:prettier": "pnpm run _format:setup:prettier -w",
     "start": "nest start",
-    "start:dev": "pnpm run build && APP_NAME=dev_app APP_VERSION=local_dev APFM_LOG_LEVEL=debug nest start --watch",
+    "start:dev": "pnpm run build && nest start --watch",
     "start:prod": "node -r newrelic dist/main",
     "_test:setup": "APFM_LOG_LEVEL=silent NODE_ENV=test vitest --coverage",
     "test:unit": "pnpm _test:setup run",

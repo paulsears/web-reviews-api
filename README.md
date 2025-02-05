@@ -52,6 +52,60 @@ nvm use # to select the correct version of node
 pnpm install
 ```
 
+## Local Environmental Variables
+
+The template, and many modules, utilize ENV vars for application configuration. To facilitate loading the proper environment
+variables we are utilizing local environmental files.
+
+`.env-local-dev` : Any ENV variable that should be committed to the repo. This would be any configuration that we need to run the application locally, run tests, etc.
+
+`.env-local-dev-secrets` : Any secret ENV variable that would be injected at runtime. This would be API keys, passwords, credentials, etc.
+
+example `.env-local-dev` (secrets would work the same way):
+
+```bash
+APP_NAME=local_app
+APP_VERSION=local_dev
+APFM_LOG_LEVEL=debug
+```
+
+### Automatically loading ENV variables
+
+The template has a `.envrc` file setup, which can be utilized by DirEnv.
+
+Direnv can be installed via homebrew:
+
+```bash
+brew install direnv
+```
+
+Once `direnv` is installed you can setup the hooks in your `.bashrc` or `.zshrc` files per the [documentation](https://direnv.net/docs/hook.html).
+
+bashrc:
+
+```bash
+if [[ -x $(command -v direnv) ]]; then
+  eval "$(direnv hook bash)"
+fi
+```
+
+zshrc:
+
+```bash
+if [[ -x $(command -v direnv) ]]; then
+  eval "$(direnv hook zsh)"
+fi
+```
+
+Other shells are supported, but `BASH` and `zsh` are the most common.
+
+For security, the first time you enter a directory with a `.envrc` file, or any time that it is updated, you'll need to run `direnv allow .`.
+
+The `.envrc` file provided in the template is a simple, bare-bones files. It can run any bash script, thus, could install or do anything you
+need to setup an environment for the current directory, including managing tooling like python environments, setting up other hooks, functions.
+
+For more complicated tooling management a tool like [ASDF](https://asdf-vm.com/) may be more appropriate.
+
 ## Project Structure
 
 There are 2 common ways to setup a NestJS application. By Module and by file type. We've chosen to structure the
