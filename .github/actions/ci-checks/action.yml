@@ -28,18 +28,14 @@ runs:
         nodeVersion: ${{ env.NODE_VERSION }}
         nodeAuthToken: ${{ inputs.nodeAuthToken }}
 
-    - name: Linting
+    - name: Linting & Formatting
       shell: bash
-      run: pnpm run format:check:lint
-
-    - name: Prettier
-      shell: bash
-      run: pnpm run format:check:prettier
+      run: pnpm run format:check
 
     - name: Tests
       shell: bash
       run: pnpm run test:unit
-    
+
     - name: SonarQube Scan
       uses: sonarsource/sonarqube-scan-action@v4
       env:
