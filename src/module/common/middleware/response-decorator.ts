@@ -17,6 +17,7 @@ import { Response } from "../model/response.entity";
 import { applicationConfig } from "../../../config";
 import { Config } from "../../../config/config";
 import { BasicResponse } from "../model/basic-response.entity";
+import { Metadata } from "../model/metadata.entity";
 
 @Catch()
 @Injectable()
@@ -63,6 +64,7 @@ export class ResponseDecorator<T> implements NestInterceptor<T, Response<T>>, Ex
   }
 
   private assignMetadata(data: any, start: Date, time?: number, error?: Error): any {
+    data.meta = data.meta ?? new Metadata();
     data.meta.build = this.config.appBuild;
     data.meta.name = this.config.appName;
     data.meta.version = this.config.appVersion;
