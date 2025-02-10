@@ -11,6 +11,7 @@
     "check-circular": "pnpm madge --circular ./dist",
     "format:check": "pnpm eslint .",
     "format:fix": "pnpm run format:check --fix",
+    "repl": "pnpm run build && nest start --entryFile repl",
     "start": "nest start",
     "start:dev": "pnpm run build && nest start --watch",
     "start:prod": "node -r newrelic dist/main",

@@ -195,6 +195,14 @@ pnpm run start:prod
 
 This will start the application with NewRelic. The required ENV vars must be set.
 
+Running the application locally, under a REPL:
+
+```bash
+pnpm run repl
+```
+
+This will allow you to run modules in the app interactively, and supports async / await.
+
 ## Swagger Documentation
 
 The Swagger plugin is supported out of the box and is available at: [http://localhost:3000/api/documentation](http://localhost:3000/api/documentation)
