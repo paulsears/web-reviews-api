@@ -4,7 +4,7 @@ import { BasicResponse } from "../../common/model/basic-response.entity";
 
 @Controller("example")
 export class ExampleController {
-  public constructor(private service: ExampleHttpClientUsage) {}
+  public constructor(private readonly service: ExampleHttpClientUsage) {}
 
   @Get()
   public async example(): Promise<BasicResponse> {

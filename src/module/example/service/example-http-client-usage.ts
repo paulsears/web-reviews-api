@@ -5,8 +5,8 @@ import { Injectable } from "@nestjs/common";
 @Injectable()
 export class ExampleHttpClientUsage {
   public constructor(
-    private logger: Logger,
-    private http: HttpClient,
+    private readonly logger: Logger,
+    private readonly http: HttpClient,
   ) {}
 
   public async exampleUsage(): Promise<void> {

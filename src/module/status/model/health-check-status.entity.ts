@@ -3,9 +3,9 @@ import { HealthStatuses } from "./health";
 
 export class HealthCheckStatus {
   public constructor(
-    private name: string,
-    private status: string | HealthStatuses,
-    private critical: boolean,
+    private readonly name: string,
+    private readonly status: string | HealthStatuses,
+    private readonly critical: boolean,
     private message?: string,
   ) {
     switch (status.toUpperCase()) {

@@ -9,8 +9,8 @@ import { HealthCheckService } from "../service/health-check";
 @Controller("health")
 export class HealthCheckController {
   public constructor(
-    private logger: Logger,
-    private healthCheckService: HealthCheckService,
+    private readonly logger: Logger,
+    private readonly healthCheckService: HealthCheckService,
   ) {}
 
   @Get()

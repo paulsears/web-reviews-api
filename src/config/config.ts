@@ -1,9 +1,17 @@
 import { ApfmLoggerConfigOptions, ExpressMiddlewareOptions } from "@aplaceformom/apfm-logger-typescript";
 import { DEFAULT_STRING_VALUE } from "./constants";
 
-const APP_NAME = process.env.APP_NAME || process.env.SERVICE_NAME || "NestJS-Template-App";
 const DEFAULT_APPLICATION_PORT = 3000;
-const APPLICATION_PORT = process.env.PORT || DEFAULT_APPLICATION_PORT.toString();
+
+// The following block accomodates using `||` to read in ENV vars that we want to make sure fall through
+// if a Falsy value is provided. Add any additional ENV vars with fallbacks to defaults in this section. 
+// ALL other code should be outside the `NOSONAR` exclusion
+//NOSONAR_BEGIN
+const APP_NAME = process.env.APP_NAME || process.env.SERVICE_NAME || "NestJS-Template-App";
+const APP_VERSION = process.env.APP_VERSION || process.env.SERVICE_VERSION || DEFAULT_STRING_VALUE;
+const APP_BUILD = process.env.APP_BUILD || DEFAULT_STRING_VALUE;
+const APPLICATION_PORT = parseInt(process.env.PORT, 10) || DEFAULT_APPLICATION_PORT;
+//NOSONAR_END
 
 export interface Config {
   port: number;
@@ -17,15 +25,15 @@ export interface Config {
 }
 
 export const config: Config = {
-  port: parseInt(APPLICATION_PORT, 10) || DEFAULT_APPLICATION_PORT,
+  port: APPLICATION_PORT,
   appName: APP_NAME,
-  appVersion: process.env.APP_VERSION || DEFAULT_STRING_VALUE,
-  appBuild: process.env.APP_BUILD || DEFAULT_STRING_VALUE,
+  appVersion: APP_VERSION,
+  appBuild: APP_BUILD,
   swaggerRoute: "/api/documentation",
   apiVersion: "1.0.0",
   logger: {
     serviceName: APP_NAME,
-    serviceVersion: process.env.APP_VERSION || process.env.SERVICE_VERSION || DEFAULT_STRING_VALUE,
+    serviceVersion: APP_VERSION,
   },
   expressLogger: {
     ignoreUrlPaths: ["/ping", "/health"],

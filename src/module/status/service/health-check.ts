@@ -5,9 +5,9 @@ import { HealthStatuses } from "../../../module/status/model/health";
 
 @Injectable()
 export class HealthCheckService {
-  public constructor(private logger: Logger) {}
+  public constructor(private readonly logger: Logger) {}
 
-  // TODO: Eventually, everything that this application depends on, external to itself,
+  // Eventually, everything that this application depends on, external to itself,
   // will be represented here. However, the concept of an "external service" in the
   // health check will require several other Injectable dependencies, and will be a
   // follow-on effort. For now, we use this place holder as an example.

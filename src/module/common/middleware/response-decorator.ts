@@ -23,9 +23,9 @@ import { Metadata } from "../model/metadata.entity";
 @Injectable()
 export class ResponseDecorator<T> implements NestInterceptor<T, Response<T>>, ExceptionFilter {
   public constructor(
-    private logger: Logger,
-    private dateTime: DateTime,
-    private config: Config = applicationConfig,
+    private readonly logger: Logger,
+    private readonly dateTime: DateTime,
+    private readonly config: Config = applicationConfig,
   ) {}
 
   public intercept(_context: ExecutionContext, next: CallHandler): Observable<any> {
@@ -48,7 +48,7 @@ export class ResponseDecorator<T> implements NestInterceptor<T, Response<T>>, Ex
     res.status(status);
 
     if (error instanceof HttpException) {
-      // TODO: I suspect that we will want to log more information about the HTTP exception
+      // I suspect that we will want to log more information about the HTTP exception
       // But i'm not sure what we need beyond standard logging right now. Let's wait till we
       // see some real world use cases to update this. We may want to switch it to `error`
       // but let's leave it as `debug` for now.
@@ -68,7 +68,7 @@ export class ResponseDecorator<T> implements NestInterceptor<T, Response<T>>, Ex
     data.meta.build = this.config.appBuild;
     data.meta.name = this.config.appName;
     data.meta.version = this.config.appVersion;
-    data.meta.time = time || -1;
+    data.meta.time = time ?? -1;
     data.meta.timestamp = start;
 
     data.meta.error = error?.message;

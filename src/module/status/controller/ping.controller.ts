@@ -9,7 +9,7 @@ import { Config } from "../../../config/config";
 @Controller("ping")
 export class PingController {
   public constructor(
-    private logger: Logger,
+    private readonly logger: Logger,
     @Inject("APP_CONFIG") private readonly config: Config,
   ) {}
 
