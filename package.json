@@ -37,7 +37,7 @@
     "vitest": "^2.1.8"
   },
   "dependencies": {
-    "@aplaceformom/apfm-datetime": "^0.0.1",
+    "@aplaceformom/apfm-datetime": "^0.0.2",
     "@aplaceformom/apfm-http-client": "^0.0.1",
     "@aplaceformom/apfm-logger-typescript": "^0.0.3",
     "@nestjs/axios": "^3.1.3",
