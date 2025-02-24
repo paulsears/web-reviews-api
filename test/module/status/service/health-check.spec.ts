@@ -19,4 +19,21 @@ describe("HealthCheckService", () => {
       expect(statuses[0]).toBeInstanceOf(HealthCheckStatus);
     });
   });
+
+  describe("health check entity", () => {
+    it("should return a of the message", () => {
+      const healthCheckStatus = new HealthCheckStatus("test", "OK", false);
+      expect(healthCheckStatus.toString()).toBe(
+        "HealthCheckStatus: { name: test, status: OK, critical: false, message: undefined }",
+      );
+    });
+
+    it("Return the error message", () => {
+      const healthCheckStatus = new HealthCheckStatus("test", "ERROR", true);
+      healthCheckStatus.maybeSetErrorMessage(["Test Error message"]);
+      expect(healthCheckStatus.errorMessage).toBe("Errors: Test Error message");
+      expect(healthCheckStatus.responseStatus).toBe("ERROR");
+      expect(healthCheckStatus.isCritical).toBe(true);
+    });
+  });
 });
