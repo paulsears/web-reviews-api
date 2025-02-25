@@ -1,83 +1,69 @@
-###################
-# BUILD FOR LOCAL DEVELOPMENT
-###################
-FROM node:22-alpine AS development
-ARG NODE_AUTH_TOKEN
-
-# Create app directory
-WORKDIR /usr/src/app
-
-# Installs pnpm
-RUN corepack enable && corepack prepare pnpm@9.15.4 --activate
-
-# Copy application dependency manifests to the container image.
-COPY --chown=node:node package.json ./
-COPY --chown=node:node pnpm-lock.yaml ./
-COPY --chown=node:node . .
-
-# Install app dependencies
-# TODO: we'll need to move the .npmrc file and deployment github workflow
-# to use docker secrets: https://docs.npmjs.com/docker-and-private-modules
-# until done, this dockerfile will require a working node_modules
-RUN pnpm install --frozen-lockfile
-
-# Use the node user from the image (instead of the root user)
-USER node
-
-###################
-# BUILD FOR PRODUCTION
-###################
-FROM node:22-alpine AS build
-ARG NODE_AUTH_TOKEN
-
-RUN corepack enable && corepack prepare pnpm@9.15.4 --activate
-
-WORKDIR /usr/src/app
-
-COPY --chown=node:node package.json ./
-COPY --chown=node:node pnpm-lock.yaml ./
-
-# In order to run `pnpm run build` we need access to the Nest CLI which is a dev dependency.
-# In the previous development stage we ran `pnpm install` which installed all dependencies,
-# so we can copy over the node_modules directory from the development image
-COPY --chown=node:node --from=development /usr/src/app/node_modules ./node_modules
-COPY --chown=node:node . .
-
-# Run the build command which creates the production bundle
-RUN pnpm run build
-
-# Set NODE_ENV environment variable
-ENV NODE_ENV production
-
-# Running `pnpm install --frozen-lockfile` removes the existing node_modules directory and passing in
-# --only=production ensures that only the production dependencies are installed. This ensures that
-# the node_modules directory is as optimized as possible
-RUN pnpm install --frozen-lockfile --only=production
-
-USER node
-
-###################
-# PRODUCTION
-###################
-FROM node:22-alpine AS production
-ARG NODE_AUTH_TOKEN
-ARG APP_VERSION
-
-WORKDIR /usr/src/app
-
-# newrelic tries to create a file in this directory on startup
-RUN chown -R node:node /usr/src/app
-
-# Copy the bundled code from the build stage to the production image
-COPY --chown=node:node --from=build /usr/src/app/node_modules ./node_modules
-COPY --chown=node:node --from=build /usr/src/app/dist ./dist
-
-USER node
-
-ENV APP_VERSION=${APP_VERSION}
-ENV PORT=80
-
-EXPOSE 80
-
-# Start the server using the production build
-CMD ["node", "-r", "newrelic", "dist/main"]
+# -------------------------------------
+# 1. BASE STAGE: Install Dependencies
+# -------------------------------------
+  FROM node:22-alpine AS base
+  ARG NODE_AUTH_TOKEN
+  
+  WORKDIR /usr/src/app
+  
+  # Enable pnpm using Corepack
+  RUN corepack enable && corepack prepare pnpm --activate
+  
+  # Copy dependency manifests
+  COPY package.json pnpm-lock.yaml ./
+  COPY .npmrc .npmrc
+  
+  # Use the NODE_AUTH_TOKEN during install
+  # This ins't best practice and should be passed via secret
+  ENV NODE_AUTH_TOKEN=${NODE_AUTH_TOKEN}
+  
+  # Install all dependencies (including dev dependencies)
+  RUN chown -R node:node /usr/src/app
+  USER node
+  RUN pnpm install --frozen-lockfile
+  
+  
+  # Use a non-root user for security
+  USER node
+  
+  # -------------------------------------
+  # 2. BUILD STAGE: Compile the Application
+  # -------------------------------------
+  FROM base AS build
+  WORKDIR /usr/src/app
+  
+  # Copy source code and node_modules from base
+  COPY --chown=node:node . .
+  COPY --chown=node:node --from=base /usr/src/app/node_modules ./node_modules
+  
+  # Build the production bundle
+  RUN pnpm run build
+  
+  # -------------------------------------
+  # 3. PRODUCTION STAGE: Optimized for Production
+  # -------------------------------------
+  FROM node:22-alpine AS production
+  ARG APP_VERSION
+  ARG NODE_AUTH_TOKEN
+  
+  WORKDIR /usr/src/app
+  
+  # Set production environment
+  ENV NODE_ENV=production
+  ENV APP_VERSION=${APP_VERSION}
+  ENV PORT=3000
+  
+  # Copy production dependencies only
+  COPY --from=base /usr/src/app/node_modules ./node_modules
+  COPY --from=build /usr/src/app/dist ./dist
+  
+  # Ensure the node user has permissions
+  RUN chown -R node:node /usr/src/app
+  USER node
+  
+  # Expose the server port
+  EXPOSE 3000
+  
+  # Start the server using the production build
+  CMD ["node", "-r", "newrelic", "dist/main"]
+  
