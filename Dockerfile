@@ -8,7 +8,7 @@ ARG NODE_AUTH_TOKEN
 WORKDIR /usr/src/app
 
 # Installs pnpm
-RUN corepack enable && corepack prepare pnpm@9.15.4 --activate
+RUN corepack enable && corepack prepare pnpm --activate
 
 # Copy application dependency manifests to the container image.
 COPY --chown=node:node package.json ./
@@ -30,7 +30,7 @@ USER node
 FROM node:22-alpine AS build
 ARG NODE_AUTH_TOKEN
 
-RUN corepack enable && corepack prepare pnpm@9.15.4 --activate
+RUN corepack enable && corepack prepare pnpm --activate
 
 WORKDIR /usr/src/app
 
