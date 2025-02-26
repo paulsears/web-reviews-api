@@ -1,6 +1,7 @@
-import { Controller, Get } from "@nestjs/common";
+import { Controller, Get, UseGuards } from "@nestjs/common";
 import { ExampleHttpClientUsage } from "../service/example-http-client-usage";
 import { BasicResponse } from "../../common/model/basic-response.entity";
+import { HeaderValidationGuard } from "../../common/guards/header-validation.guard";
 
 @Controller("example")
 export class ExampleController {
@@ -8,6 +9,13 @@ export class ExampleController {
 
   @Get()
   public async example(): Promise<BasicResponse> {
+    await this.service.exampleUsage();
+    return new BasicResponse();
+  }
+
+  @Get("headerError")
+  @UseGuards(new HeaderValidationGuard(["must-pass-header"]))
+  public async headerError(): Promise<BasicResponse> {
     await this.service.exampleUsage();
     return new BasicResponse();
   }
