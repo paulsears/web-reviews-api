@@ -16,14 +16,14 @@ jobs:
         uses: ./.github/actions/build
         with:
           nodeVersion: ${{ env.NODE_VERSION }}
-          nodeAuthToken: ${{ secrets.GITHUB_TOKEN }}
+          nodeAuthToken: ${{ secrets.NODE_AUTH_TOKEN }}
           cache: 'pnpm'
 
       - name: CI Checks
         uses: ./.github/actions/ci-checks
         with:
           nodeVersion: ${{ env.NODE_VERSION }}
-          nodeAuthToken: ${{ secrets.GITHUB_TOKEN }}
+          nodeAuthToken: ${{ secrets.NODE_AUTH_TOKEN }}
           sonarToken: ${{ secrets.SONAR_TOKEN }}
           sonarHostUrl: ${{ secrets.SONAR_HOST_URL }}
           cache: 'pnpm'
