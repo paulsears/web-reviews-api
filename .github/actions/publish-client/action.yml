@@ -1,0 +1,59 @@
+name: publish-client
+description: publishes an automatically generated client to npm
+
+inputs:
+  nodeVersion:
+    description: "Node.js version"
+    required: true
+  nodeAuthToken:
+    description: "Secret Node Auth Token: secrets.READ_PACKAGES"
+    required: true
+  githubToken:
+    description: "Secret Github Token: secrets.GITHUB_TOKEN"
+    required: true
+  prerelease:
+    description: "Is this a beta build"
+    required: false
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - uses: pnpm/action-setup@v4
+      name: Install pnpm
+      with:
+        version: 9.15.4
+        run_install: true
+      env:
+        NODE_AUTH_TOKEN: ${{ inputs.nodeAuthToken }}
+    - name: Update Package Version for Beta
+      shell: bash
+      if: ${{ inputs.prerelease }}
+      run: |
+        pushd .client
+        CURRENT_VERSION=$(jq -r .version < package.json)
+        SHORT_SHA=$(echo "${GITHUB_SHA}" | cut -c1-8)
+        BETA_VERSION="${CURRENT_VERSION}-beta.${SHORT_SHA}"
+        echo "Updating package version to $BETA_VERSION for beta release..."
+        jq ".version = \"$BETA_VERSION\"" package.json > temp.json && mv temp.json package.json
+        cat package.json
+        popd
+    - name: Publish
+      shell: bash
+      run: |
+        pushd .client
+        if [[ ${{ inputs.prerelease }} == true ]]; then
+          echo "Publishing with beta tag..."
+          pnpm publish --no-git-checks --tag beta
+        else
+          echo "Publishing latest tag..."
+          pnpm publish --no-git-checks
+        fi
+        popd
+      env:
+        NODE_AUTH_TOKEN: ${{ inputs.githubToken }}
