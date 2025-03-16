@@ -11,6 +11,7 @@ const APP_NAME = process.env.APP_NAME || process.env.SERVICE_NAME || "NestJS-Tem
 const APP_VERSION = process.env.APP_VERSION || process.env.SERVICE_VERSION || DEFAULT_STRING_VALUE;
 const APP_BUILD = process.env.APP_BUILD || DEFAULT_STRING_VALUE;
 const APPLICATION_PORT = parseInt(process.env.PORT as string, 10) || DEFAULT_APPLICATION_PORT;
+const APP_ENV = process.env.APP_ENV || "local";
 //NOSONAR_END
 
 export interface Config {
@@ -18,6 +19,7 @@ export interface Config {
   appName: string;
   appVersion: string;
   appBuild: string;
+  appEnv: string;
   swaggerRoute: string;
   apiVersion: string;
   logger: ApfmLoggerConfigOptions;
@@ -29,6 +31,7 @@ export const config: Config = {
   appName: APP_NAME,
   appVersion: APP_VERSION,
   appBuild: APP_BUILD,
+  appEnv: APP_ENV,
   swaggerRoute: "/api/documentation",
   apiVersion: "1.0.0",
   logger: {

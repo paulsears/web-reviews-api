@@ -16,6 +16,7 @@ interface Response<T> extends ExpressResponse {
     version: string;
     time: number;
     timestamp: Date;
+    env: string;
     error?: any;
   };
 }
@@ -73,6 +74,7 @@ describe("ResponseDecorator", () => {
           version: config.appVersion,
           time: 0,
           timestamp: dateTime.getDate(),
+          env: config.appEnv,
           error: undefined,
         },
       } as Response<any>;
@@ -98,6 +100,7 @@ describe("ResponseDecorator", () => {
           version: config.appVersion,
           time: 1000,
           timestamp: startDate,
+          env: config.appEnv,
           error: undefined,
         },
       } as Response<any>;

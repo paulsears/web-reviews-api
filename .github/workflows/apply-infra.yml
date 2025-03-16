@@ -1,0 +1,40 @@
+name: apply-infra
+on:
+  workflow_dispatch:
+    inputs:
+      path:
+        description: "Path to the Terrafrom configuration"
+        required: true
+        default: "infrastructure/terraform/dev"
+
+jobs:
+  terraform-plan:
+    uses: aplaceformom/terraform-plan/.github/workflows/terraform-plan.yaml@v1
+    with:
+      path: "${{ inputs.path }}"
+      awsRole: "arn:aws:iam::373477481654:role/${{github.event.repository.name}}-deploy"
+    secrets: inherit
+    permissions:
+      id-token: write
+      contents: read
+      pull-requests: write
+      checks: read
+  approval:
+    runs-on: ubuntu-latest
+    needs: terraform-plan
+    environment: infrastructure
+    steps:
+      - name: manual-approval
+        run: echo "Hit approve in the GitHub UI"
+  terraform-apply:
+    needs: approval
+    uses: aplaceformom/terraform-apply/.github/workflows/terraform-apply.yaml@v1
+    with:
+      path: "${{ inputs.path }}"
+      awsRole: "arn:aws:iam::373477481654:role/${{github.event.repository.name}}-deploy"
+    secrets: inherit
+    permissions:
+      id-token: write
+      contents: read
+      pull-requests: write
+      checks: read

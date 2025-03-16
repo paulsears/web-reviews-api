@@ -1,0 +1,81 @@
+{
+  "containerDefinitions": [
+    {
+      "name": "${YOUR_SERVICE_NAME}",
+      "image": "latest",
+      "cpu": 512,
+      "memory": 1024,
+      "portMappings": [
+        {
+          "name": "${YOUR_SERVICE_NAME}",
+          "containerPort": 4000,
+          "hostPort": 4000,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "environment": [
+        {
+          "name": "APP_ENV",
+          "value": "dev"
+        },
+        {
+          "name": "APP_NAME",
+          "value": "${YOUR_SERVICE_NAME}"
+        },
+        {
+          "name": "NEW_RELIC_APP_NAME",
+          "value": "${YOUR_SERVICE_NAME}-dev"
+        },
+        {
+          "name": "NEW_RELIC_LICENSE_KEY",
+          "value": "5d240cb804b890d877ff8c061c5c0932FFFFNRAL"
+        }
+      ],
+      "mountPoints": [],
+      "secrets": [
+        {
+          "name": "DATABASE_URL",
+          "valueFrom": "/${YOUR_SERVICE_NAME}/secrets/DATABASE_URL"
+        },
+        {
+          "name": "RO_DATABASE_URL",
+          "valueFrom": "/${YOUR_SERVICE_NAME}/secrets/RO_DATABASE_URL"
+        }
+      ],
+      "volumesFrom": [],
+      "linuxParameters": {
+        "initProcessEnabled": false
+      },
+      "startTimeout": 30,
+      "stopTimeout": 120,
+      "user": "0",
+      "privileged": false,
+      "readonlyRootFilesystem": false,
+      "interactive": false,
+      "pseudoTerminal": false,
+      "ulimits": [
+        {
+          "name": "nofile",
+          "softLimit": 65535,
+          "hardLimit": 65535
+        }
+      ],
+      "systemControls": []
+    }
+  ],
+  "placementConstraints": [],
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "512",
+  "memory": "1024",
+  "runtimePlatform": {
+    "cpuArchitecture": "X86_64",
+    "operatingSystemFamily": "LINUX"
+  },
+  "family": "${YOUR_SERVICE_NAME}",
+  "taskRoleArn": "arn:aws:iam::146283654498:role/${YOUR_SERVICE_NAME}-task-role",
+  "executionRoleArn": "arn:aws:iam::146283654498:role/ecsTaskExecutionRoleDefault",
+  "networkMode": "awsvpc",
+
+  "tags": []
+}

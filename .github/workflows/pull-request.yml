@@ -1,4 +1,4 @@
-name: apfm-nestjs-template
+name: pr
 
 on: [pull_request]
 

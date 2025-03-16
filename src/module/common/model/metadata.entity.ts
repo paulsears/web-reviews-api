@@ -5,4 +5,5 @@ export class Metadata {
   public timestamp: Date;
   public build: string;
   public error: string;
+  public env: string;
 }

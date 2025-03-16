@@ -68,6 +68,7 @@ export class ResponseDecorator<T> implements NestInterceptor<T, Response<T>>, Ex
     data.meta.build = this.config.appBuild;
     data.meta.name = this.config.appName;
     data.meta.version = this.config.appVersion;
+    data.meta.env = this.config.appEnv;
     data.meta.time = time ?? -1;
     data.meta.timestamp = start;
 

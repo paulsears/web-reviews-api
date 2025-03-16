@@ -1,0 +1,74 @@
+# -------------------------------------
+# 1. BASE STAGE: Install Dependencies
+# -------------------------------------
+FROM node:22-alpine AS base
+ARG NODE_AUTH_TOKEN
+
+WORKDIR /usr/src/app
+
+# Enable pnpm using Corepack
+RUN corepack enable && corepack prepare pnpm --activate
+
+# Copy dependency manifests
+COPY package.json pnpm-lock.yaml ./
+COPY .npmrc .npmrc
+COPY --chown=node:node ./prisma ./prisma
+
+# Use the NODE_AUTH_TOKEN during install
+ENV NODE_AUTH_TOKEN=${NODE_AUTH_TOKEN}
+
+# Install all dependencies (including dev dependencies)
+RUN chown -R node:node /usr/src/app
+USER node
+RUN pnpm install --frozen-lockfile && pnpm run build:prisma
+
+# Use a non-root user for security
+USER node
+
+# -------------------------------------
+# 2. BUILD STAGE: Compile the Application
+# -------------------------------------
+FROM base AS build
+WORKDIR /usr/src/app
+
+# Copy source code and node_modules from base
+COPY --chown=node:node . .
+COPY --chown=node:node --from=base /usr/src/app/node_modules ./node_modules
+
+# Build the production bundle
+RUN pnpm run build
+
+# -------------------------------------
+# 3. PRODUCTION STAGE: Optimized for Production
+# -------------------------------------
+FROM node:22-alpine AS production
+ARG APP_VERSION
+ARG APP_BUILD
+ARG NODE_AUTH_TOKEN
+
+WORKDIR /usr/src/app
+
+# Set production environment
+ENV NODE_ENV=production
+ENV NEW_RELIC_LOG=stdout
+ENV NEW_RELIC_DISTRIBUTED_TRACING_ENABLED=false
+ENV NEW_RELIC_APPLICATION_LOGGING_FORWARDING_ENABLED=true
+ENV APP_VERSION=${APP_VERSION}
+ENV APP_BUILD=${APP_BUILD}
+ENV PORT=4000
+
+# Copy dependencies. Includes dev dependencies for now.
+COPY --from=base /usr/src/app/node_modules ./node_modules
+COPY --from=build /usr/src/app/dist ./dist
+
+# Ensure the node user has permissions
+# This isn not strictly necessary but a callout
+# since platform has only allowed read access in ECS
+RUN chown -R node:node /usr/src/app
+USER node
+
+# Expose the server port
+EXPOSE 4000
+
+# Start the server using the production build
+CMD ["node", "-r", "newrelic", "dist/main"]

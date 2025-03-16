@@ -224,3 +224,16 @@ The github actions have SonarQube enabled to run on Pull Requests. When creating
 Since we use <https://github.com/aplaceformom/mockfill> for testing we've added the verify function that it provides as an assert function.
 
 See [Documentation](https://aplaceformom.atlassian.net/wiki/spaces/DPLAT/pages/3455680513/Getting+Started) for more details
+
+## Deployment
+
+Services deployed with Platform's Self Service Infrastructure. [See Confluence](https://aplaceformom.atlassian.net/wiki/spaces/DPLAT/pages/3593076789/Self+Service+-+Getting+Started)
+since you will need to do a couple of prerequisites before deployments happen.
+
+Search for `${YOUR_SERVICE_NAME}` and replace with your service name.
+
+### Deployed Environments
+
+* Dev - `${repo-name}$.us-west-2.dev.apfmtech.com`
+* QA - `${repo-name}$.us-west-2.qa.apfmtech.com`
+* Prod - `${repo-name}$.us-west-2.prod.apfmtech.com`

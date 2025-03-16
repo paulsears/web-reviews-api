@@ -1,0 +1,55 @@
+name: prod
+
+on:
+  push:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+" # Matches tags like v1.0.0, v12.34.56, etc.
+
+jobs:
+  build:
+    env:
+      NODE_VERSION: 22
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build NestJS Application
+        uses: ./.github/actions/build
+        with:
+          nodeVersion: ${{ env.NODE_VERSION }}
+          nodeAuthToken: ${{ secrets.NODE_AUTH_TOKEN }}
+          cache: "pnpm"
+          cache-key: build-${{ github.job }}-pnpm
+
+      - name: CI Checks
+        uses: ./.github/actions/ci-checks
+        with:
+          nodeVersion: ${{ env.NODE_VERSION }}
+          nodeAuthToken: ${{ secrets.NODE_AUTH_TOKEN }}
+          sonarToken: ${{ secrets.SONAR_TOKEN }}
+          sonarHostUrl: ${{ secrets.SONAR_HOST_URL }}
+          cache: "pnpm"
+
+  image:
+    uses: aplaceformom/workflows/.github/workflows/docker-build.yaml@main
+    needs: build
+    with:
+      env: prod
+      deploy-tag: ${{github.sha}}
+      ecr-root: true
+      push: true
+      deployment-role: "arn:aws:iam::373477481654:role/${{github.event.repository.name}}-deploy"
+    secrets:
+      build-args: |
+        NODE_AUTH_TOKEN=${{secrets.NODE_AUTH_TOKEN}}
+        APP_BUILD=${{github.sha}}
+        APP_VERSION=${{github.ref_name}}
+  deploy:
+    uses: aplaceformom/ecs-deploy-action/.github/workflows/deploy-ecs.yml@v1
+    needs: image
+    with:
+      target-environment: prod
+      task-definition-file: infrastructure/tasks/task-definition.dev.json
+      image-uri: 373477481654.dkr.ecr.us-west-2.amazonaws.com/${{github.event.repository.name}}:${{github.ref_name}}
+      ecs-service: ${{github.event.repository.name}}
+      ecs-cluster: default
