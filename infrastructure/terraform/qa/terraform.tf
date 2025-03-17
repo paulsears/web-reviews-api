@@ -20,8 +20,8 @@ provider "aws" {
   region     = "us-west-2"
   retry_mode = "adaptive"
   assume_role {
-    external_id  = "iTstScj0BAjAUBed"
-    role_arn     = "arn:aws:iam::146283654498:role/TerraformApply"
+    external_id  = "ucBT6YCcPXGU87p2"
+    role_arn     = "arn:aws:iam::521312932954:role/TerraformApply"
     session_name = "terraform-dev-apply"
   }
 }
