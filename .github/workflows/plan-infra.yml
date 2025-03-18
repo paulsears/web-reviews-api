@@ -1,4 +1,4 @@
-name: apply-infra
+name: plan-infra
 on:
   workflow_dispatch:
     inputs:
