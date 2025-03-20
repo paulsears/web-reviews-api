@@ -1,12 +1,25 @@
 name: qa
 
 on:
-  push:
-    tags:
-      - "rc-*" # Matches tags like rc-1.0.0, rc-test, etc.
+  release:
+    types:
+      - prereleased
 
 jobs:
+
+  validate-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if release is a prerelease and follows SemVer with RC
+        run: |
+          RELEASE_VERSION="${{ github.event.release.tag_name }}"
+          if echo "$RELEASE_VERSION" | grep -Eq '^v[0-9]+\.[0-9]+\.[0-9]+-rc\.[0-9]+$'; then
+            echo "Valid RC prerelease: $RELEASE_VERSION"
+          else
+            echo "Invalid RC format. Expected vX.Y.Z-rc.N" && exit 1
+          fi
   build:
+    needs: validate-tag
     env:
       NODE_VERSION: 22
     runs-on: ubuntu-latest
