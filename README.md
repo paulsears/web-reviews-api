@@ -237,3 +237,23 @@ Search for `${YOUR_SERVICE_NAME}` and replace with your service name.
 * Dev - `${repo-name}$.us-west-2.dev.apfmtech.com`
 * QA - `${repo-name}$.us-west-2.qa.apfmtech.com`
 * Prod - `${repo-name}$.us-west-2.prod.apfmtech.com`
+
+### Secrets
+
+In the task definitions secrets can be added to the `container.secret` array.
+
+The values are pulled from parameter store.
+
+``` json
+
+"secrets": [
+  {
+    "name": "DATABASE_PASS",
+    "valueFrom": "/${YOUR_SERVICE_NAME}/secrets/db_pass_app"
+  },
+  {
+    "name": "DATABASE_PASS_READONLY",
+    "valueFrom": "/${YOUR_SERVICE_NAME}/secrets/db_pass_readonly"
+  }
+]
+```

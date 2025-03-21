@@ -33,16 +33,7 @@
         }
       ],
       "mountPoints": [],
-      "secrets": [
-        {
-          "name": "DATABASE_URL",
-          "valueFrom": "/${YOUR_SERVICE_NAME}/secrets/DATABASE_URL"
-        },
-        {
-          "name": "RO_DATABASE_URL",
-          "valueFrom": "/${YOUR_SERVICE_NAME}/secrets/RO_DATABASE_URL"
-        }
-      ],
+      "secrets": [],
       "volumesFrom": [],
       "linuxParameters": {
         "initProcessEnabled": false

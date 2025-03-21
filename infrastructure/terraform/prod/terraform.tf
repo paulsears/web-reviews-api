@@ -4,7 +4,7 @@ terraform {
     bucket         = "apfm-terraform-state-backend"
     dynamodb_table = "devx-terraform-lock"
     encrypt        = true
-    key            = "stacks/prod/${SERVICE_NAME}/terraform.tfstate"
+    key            = "stacks/prod/${YOUR_SERVICE_NAME}/terraform.tfstate"
     region         = "us-west-2"
   }
 

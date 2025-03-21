@@ -9,6 +9,7 @@ on:
 
 jobs:
   terraform-plan:
+    name: ${{ inputs.path }} terraform-plan 
     uses: aplaceformom/terraform-plan/.github/workflows/terraform-plan.yaml@v1
     with:
       path: "${{ inputs.path }}"
