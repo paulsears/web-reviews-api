@@ -48,7 +48,7 @@ jobs:
     needs: build
     with:
       env: prod
-      deploy-tag: ${{github.sha}}
+      deploy-tag: ${{github.ref_name}}
       ecr-root: true
       push: true
       deployment-role: "arn:aws:iam::373477481654:role/${{github.event.repository.name}}-deploy"
