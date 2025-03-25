@@ -26,14 +26,15 @@
         {
           "name": "NEW_RELIC_APP_NAME",
           "value": "${YOUR_SERVICE_NAME}-dev"
-        },
-        {
-          "name": "NEW_RELIC_LICENSE_KEY",
-          "value": "5d240cb804b890d877ff8c061c5c0932FFFFNRAL"
         }
       ],
       "mountPoints": [],
-      "secrets": [],
+      "secrets": [
+        {
+            "name": "NEW_RELIC_LICENSE_KEY",
+            "valueFrom": "/aplaceformom/new-relic-key"
+        }
+      ],
       "volumesFrom": [],
       "linuxParameters": {
         "initProcessEnabled": false
