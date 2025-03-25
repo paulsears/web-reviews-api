@@ -244,6 +244,9 @@ In the task definitions secrets can be added to the `container.secret` array.
 
 The values are pulled from parameter store.
 
+Note: We have standardized on snake_case for YOUR_SERVICE_NAME here even though most repos are kebob-case. This is mainly because database names need to be snake_case so easier to
+standardize on one style.
+
 ``` json
 
 "secrets": [

@@ -22,6 +22,6 @@ provider "aws" {
   assume_role {
     external_id  = "8Q87R108WypLN8wqL8Rg"
     role_arn     = "arn:aws:iam::451834275279:role/TerraformApply"
-    session_name = "terraform-dev-apply"
+    session_name = "terraform-prod-apply"
   }
 }
