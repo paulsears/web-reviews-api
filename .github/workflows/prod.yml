@@ -20,6 +20,7 @@ jobs:
           fi
   build:
     needs: validate-tag
+    if: github.event.release.prerelease == false
     env:
       NODE_VERSION: 22
     runs-on: ubuntu-latest
@@ -45,7 +46,8 @@ jobs:
 
   image:
     uses: aplaceformom/workflows/.github/workflows/docker-build.yaml@main
-    needs: build
+    if: github.event.release.prerelease == false
+    needs: [build, validate-tag]
     with:
       env: prod
       deploy-tag: ${{github.ref_name}}
@@ -59,7 +61,8 @@ jobs:
         APP_VERSION=${{github.ref_name}}
   deploy:
     uses: aplaceformom/ecs-deploy-action/.github/workflows/deploy-ecs.yml@v1
-    needs: image
+    if: github.event.release.prerelease == false
+    needs: [image, validate-tag]
     with:
       target-environment: prod
       task-definition-file: infrastructure/tasks/task-definition.dev.json
