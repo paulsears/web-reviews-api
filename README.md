@@ -8,32 +8,32 @@ would otherwise have to build ourselves.
 
 Features:
 
-* Logger logs in a standard cross application manor, improving cross application searching
-* Http Client with Retries and correlation id support
-* Standard Response Decorator, to improve standards across APFM applications
-* Status Endpoints
+- Logger logs in a standard cross application manor, improving cross application searching
+- Http Client with Retries and correlation id support
+- Standard Response Decorator, to improve standards across APFM applications
+- Status Endpoints
 
 ## APFM Modules Used
 
 The following APFM developed modules are included in this repo. When expanding functionality or fixing bugs in these areas
 please consider submitting a pull request to the appropriate module so that everyone using this template can benefit.
 
-* [DateTime](https://github.com/aplaceformom/apfm-datetime)
-* [HTTP Client](https://github.com/aplaceformom/apfm-http-client)
-* [Logger](https://github.com/aplaceformom/apfm-logger-typescript)
-* [MockFill](https://github.com/aplaceformom/mockfill)
+- [DateTime](https://github.com/aplaceformom/apfm-datetime)
+- [HTTP Client](https://github.com/aplaceformom/apfm-http-client)
+- [Logger](https://github.com/aplaceformom/apfm-logger-typescript)
+- [MockFill](https://github.com/aplaceformom/mockfill)
 
 ## Local Development
 
 Required:
 
-* [pnpm](https://pnpm.io/)
+- [pnpm](https://pnpm.io/)
 
 Recommended:
 
-* [nvm](https://github.com/nvm-sh/nvm)
-* [editorconfig](https://editorconfig.org/) for your text editor
-  * Many editors have built in support, and many more have plugins. [Editor Support](https://editorconfig.org/#pre-installed)
+- [nvm](https://github.com/nvm-sh/nvm)
+- [editorconfig](https://editorconfig.org/) for your text editor
+  - Many editors have built in support, and many more have plugins. [Editor Support](https://editorconfig.org/#pre-installed)
 
 ```bash
 # Assuming you have an exported ENV var called $GIT_HOME, otherwise, where ever you keep your git repos
@@ -162,19 +162,19 @@ class constructor:
 
 #### Required
 
-* `APP_NAME` : name of the application
-* `APP_VERSION` : Version of the application. Recommend using GitSha or github release version
-* `NEW_RELIC_APP_NAME` : Application name in NewRelic. This will vary by ENV, and will likely be `APP_NAME-ENV`. Example: `my-app-prod` for production, or `my-app-qa` for QA.
-* `NEW_RELIC_LICENSE_KEY`: The New Relic License Key
+- `APP_NAME` : name of the application
+- `APP_VERSION` : Version of the application. Recommend using GitSha or github release version
+- `NEW_RELIC_APP_NAME` : Application name in NewRelic. This will vary by ENV, and will likely be `APP_NAME-ENV`. Example: `my-app-prod` for production, or `my-app-qa` for QA.
+- `NEW_RELIC_LICENSE_KEY`: The New Relic License Key
 
 #### Optional
 
-* `APFM_LOG_LEVEL` : Optional : String : default `info`. Valid values "trace", "verbose", "debug", "info", "warn", "error", "silent", "fatal"
-* `APFM_LOGGER_JSON` : Optional : Boolean : Log as JSON (default) or plain text. Useful for local development. `true` for json logging, `false` for plain text.
-* `PORT`: Optional: Integer : Default = 3000
-* `NEW_RELIC_LOG_LEVEL`: New Relic's log level. Default `info`. It is recommended to not change this.
-* `NEW_RELIC_ERROR_COLLECTOR_IGNORE_ERROR_CODES`: Which API Status codes NewRelic will alert as Errors. It is RECOMMENDED that this be set to ignore 4xx errors, which are client errors.
-  * Recommendation: `400, 401, 402, 403, 404, 405, 406, 408, 409, 410, 411, 412, 413, 414, 415, 416, 417, 418, 429`
+- `APFM_LOG_LEVEL` : Optional : String : default `info`. Valid values "trace", "verbose", "debug", "info", "warn", "error", "silent", "fatal"
+- `APFM_LOGGER_JSON` : Optional : Boolean : Log as JSON (default) or plain text. Useful for local development. `true` for json logging, `false` for plain text.
+- `PORT`: Optional: Integer : Default = 3000
+- `NEW_RELIC_LOG_LEVEL`: New Relic's log level. Default `info`. It is recommended to not change this.
+- `NEW_RELIC_ERROR_COLLECTOR_IGNORE_ERROR_CODES`: Which API Status codes NewRelic will alert as Errors. It is RECOMMENDED that this be set to ignore 4xx errors, which are client errors.
+  - Recommendation: `400, 401, 402, 403, 404, 405, 406, 408, 409, 410, 411, 412, 413, 414, 415, 416, 417, 418, 429`
 
 ## Running
 
@@ -219,7 +219,7 @@ Basic validation support with examples are provided in the `validators` director
 ## SonarQube
 
 The github actions have SonarQube enabled to run on Pull Requests. When creating a repo with this template
- change the `sonar.projectKey` in the `sonar-project.properties` file to the new project's name.
+change the `sonar.projectKey` in the `sonar-project.properties` file to the new project's name.
 
 Since we use <https://github.com/aplaceformom/mockfill> for testing we've added the verify function that it provides as an assert function.
 
@@ -234,9 +234,9 @@ Search for `${YOUR_SERVICE_NAME}` and replace with your service name.
 
 ### Deployed Environments
 
-* Dev - `${repo-name}$.us-west-2.dev.apfmtech.com`
-* QA - `${repo-name}$.us-west-2.qa.apfmtech.com`
-* Prod - `${repo-name}$.us-west-2.prod.apfmtech.com`
+- Dev - `${repo-name}$.us-west-2.dev.apfmtech.com`
+- QA - `${repo-name}$.us-west-2.qa.apfmtech.com`
+- Prod - `${repo-name}$.us-west-2.prod.apfmtech.com`
 
 ### Secrets
 
@@ -247,7 +247,7 @@ The values are pulled from parameter store.
 Note: We have standardized on snake_case for YOUR_SERVICE_NAME here even though most repos are kebob-case. This is mainly because database names need to be snake_case so easier to
 standardize on one style.
 
-``` json
+```json
 
 "secrets": [
   {
@@ -260,3 +260,25 @@ standardize on one style.
   }
 ]
 ```
+
+### Deployment Markers
+
+A handy feature in New Relic is the ability to add markers to all APM graphs when a
+deployment occurs. This allows you to visually compare metrics pre and post deploy and
+for external teams to easily determine when a service was last deployed.
+
+![New Relic Deployment Maker](./docs/images/DeploymentMarker.png)
+
+In order to add these markers, you will need to call the `newrelic/deployment-marker-action`
+action from your workflow at the end of your deployment. An example of this can be found in
+the GitHub actions of [cresta-proxy](https://github.com/aplaceformom/cresta-proxy/blob/5ec9efbc2f8bc1eb4db521bbf698b5735f30dc9e/.github/workflows/dev.yml#L88)
+
+Note that this action requires a New Relic Entity Guid. This can be retrieved from the APM page
+of your application by clicking the ellipsis button next to the name of your application as illustrated in the image below:
+
+![New Relic Entity GUID](./docs/images/NREntityGUID.png)
+
+Note, that this Entity GUID will be different for each environment, so you will need
+three different values corresponding to each environment for your workflows.
+
+For full details on this action including additional inputs you can reference the [New Relic Documentation](https://github.com/newrelic/deployment-marker-action).
