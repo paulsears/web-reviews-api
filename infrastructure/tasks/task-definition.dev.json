@@ -31,8 +31,8 @@
       "mountPoints": [],
       "secrets": [
         {
-            "name": "NEW_RELIC_LICENSE_KEY",
-            "valueFrom": "/aplaceformom/new-relic-key"
+          "name": "NEW_RELIC_LICENSE_KEY",
+          "valueFrom": "/aplaceformom/new-relic-key"
         }
       ],
       "volumesFrom": [],
@@ -54,12 +54,46 @@
         }
       ],
       "systemControls": []
+    },
+    {
+      "environment": [
+        {
+          "name": "NRIA_OVERRIDE_HOST_ROOT",
+          "value": ""
+        },
+        {
+          "name": "NRIA_IS_FORWARD_ONLY",
+          "value": "true"
+        },
+        {
+          "name": "FARGATE",
+          "value": "true"
+        },
+        {
+          "name": "NRIA_PASSTHROUGH_ENVIRONMENT",
+          "value": "ECS_CONTAINER_METADATA_URI,ECS_CONTAINER_METADATA_URI_V4,FARGATE"
+        },
+        {
+          "name": "NRIA_CUSTOM_ATTRIBUTES",
+          "value": "{\"nrDeployMethod\":\"downloadPage\"}"
+        }
+      ],
+      "secrets": [
+        {
+          "name": "NRIA_LICENSE_KEY",
+          "valueFrom": "/aplaceformom/new-relic-nri-key"
+        }
+      ],
+      "cpu": 256,
+      "memoryReservation": 512,
+      "image": "newrelic/nri-ecs:1.12.12",
+      "name": "newrelic-infra"
     }
   ],
   "placementConstraints": [],
   "requiresCompatibilities": ["FARGATE"],
-  "cpu": "512",
-  "memory": "1024",
+  "cpu": "1024",
+  "memory": "2048",
   "runtimePlatform": {
     "cpuArchitecture": "X86_64",
     "operatingSystemFamily": "LINUX"
