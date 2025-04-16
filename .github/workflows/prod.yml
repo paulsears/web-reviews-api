@@ -7,17 +7,12 @@ on:
 
 jobs:
   validate-tag:
+    uses: aplaceformom/github-action-semver-check/.github/workflows/semver-check.yml@v1.0.0
     if: github.event.release.prerelease == false
-    runs-on: ubuntu-latest
-    steps:
-      - name: Validate Production SemVer
-        run: |
-          RELEASE_VERSION="${{ github.event.release.tag_name }}"
-          if echo "$RELEASE_VERSION" | grep -Eq '^v[0-9]+\.[0-9]+\.[0-9]+$'; then
-            echo "Valid SemVer prerelease: $RELEASE_VERSION"
-          else
-            echo "Invalid SemVer format. Expected vX.Y.Z" && exit 1
-          fi
+    with:
+      release_version: ${{ github.event.release.tag_name}}
+      pre_release: ${{ github.event.release.prerelease }}
+
   build:
     needs: validate-tag
     if: github.event.release.prerelease == false
