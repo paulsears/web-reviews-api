@@ -26,6 +26,18 @@
         {
           "name": "NEW_RELIC_APP_NAME",
           "value": "${YOUR_SERVICE_NAME}-dev"
+        },
+        {
+          "name": "NEW_RELIC_LOG",
+          "value": "stdout"
+        },
+        {
+          "name": "NEW_RELIC_APPLICATION_LOGGING_FORWARDING_ENABLED",
+          "value": "true"
+        },
+        {
+          "name": "NEW_RELIC_DISTRIBUTED_TRACING_ENABLED",
+          "value": "false"
         }
       ],
       "mountPoints": [],
