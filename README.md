@@ -35,7 +35,7 @@ Recommended:
 - [editorconfig](https://editorconfig.org/) for your text editor
   - Many editors have built in support, and many more have plugins. [Editor Support](https://editorconfig.org/#pre-installed)
 
-```bash
+```shell
 # Assuming you have an exported ENV var called $GIT_HOME, otherwise, where ever you keep your git repos
 cd ${GIT_HOME}
 
@@ -63,7 +63,7 @@ variables we are utilizing local environmental files.
 
 example `.env-local-dev` (secrets would work the same way):
 
-```bash
+```shell
 APP_NAME=local_app
 APP_VERSION=local_dev
 APFM_LOG_LEVEL=debug
@@ -75,7 +75,7 @@ The template has a `.envrc` file setup, which can be utilized by DirEnv.
 
 Direnv can be installed via homebrew:
 
-```bash
+```shell
 brew install direnv
 ```
 
@@ -83,7 +83,7 @@ Once `direnv` is installed you can setup the hooks in your `.bashrc` or `.zshrc`
 
 bashrc:
 
-```bash
+```shell
 if [[ -x $(command -v direnv) ]]; then
   eval "$(direnv hook bash)"
 fi
@@ -91,7 +91,7 @@ fi
 
 zshrc:
 
-```bash
+```shell
 if [[ -x $(command -v direnv) ]]; then
   eval "$(direnv hook zsh)"
 fi
@@ -180,7 +180,7 @@ class constructor:
 
 To run the NestJS application locally:
 
-```bash
+```shell
 pnpm run start:dev
 ```
 
@@ -189,7 +189,7 @@ It will also set any required ENV variables and set logging to `debug`.
 
 Running the application in AWS production:
 
-```bash
+```shell
 pnpm run start:prod
 ```
 
@@ -197,7 +197,7 @@ This will start the application with NewRelic. The required ENV vars must be set
 
 Running the application locally, under a REPL:
 
-```bash
+```shell
 pnpm run repl
 ```
 
@@ -282,3 +282,55 @@ Note, that this Entity GUID will be different for each environment, so you will 
 three different values corresponding to each environment for your workflows.
 
 For full details on this action including additional inputs you can reference the [New Relic Documentation](https://github.com/newrelic/deployment-marker-action).
+
+## Tokens
+
+### Local Node Auth Token
+
+In order to access the private npm repository, which is where we save APFM NPM Modules, you'll need a Github personal access token.
+
+The `.npmrc` file contains the following
+
+```shell
+@aplaceformom:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}
+```
+
+- Log in to GitHub and navigate to Settings > Developer settings > Personal access tokens. Then click Generate new token or visit the following link: [Generate a new token](https://github.com/settings/tokens/new).
+- Ensure the token has the repo and packages scopes checked.
+- Copy the generated token to your clipboard, you won't be able to retrieve it again.
+- On the token list page, click the Enable SSO button and authorize A Place for Mom.
+- Add the following line to your `.bashrc` or `.zshrc` file (located in your home directory, the prefixed `.` means the files are hidden, so you may not be able to navigate to
+them normally):
+
+```shell
+export NODE_AUTH_TOKEN="YourTokenHere"
+```
+
+- Restart your terminal or reload your shell configuration by running:
+
+```shell
+# If using ZSH, the default on MacOS.
+source ~/.zshrc
+
+# If using BASH, the default on most Linux distros, including WSL2 on windows
+source ~/.bashrc
+```
+
+- Verify that the environment variable is set correctly by running the following command:
+
+```shell
+echo $NODE_AUTH_TOKEN
+```
+
+You should see your token printed in the terminal.
+
+### Tokens in GitHub Actions
+
+Organization secrets are used to provide GitHub Actions with the necessary
+ access. The same `NODE_AUTH_TOKEN` is available in GitHub Actions, allowing
+ the `.npmrc` configuration to work both locally and in Actions, provided the
+ steps outlined in the above guide are followed.
+
+In workflow files, secrets can be accessed in the workflow YAML using `${{ secrets.NODE_AUTH_TOKEN }}`.
+Configuring repository secrets or viewing organization secrets can be done by navigating to Settings > Security > Actions.
