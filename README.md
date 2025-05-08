@@ -203,6 +203,34 @@ pnpm run repl
 
 This will allow you to run modules in the app interactively, and supports async / await.
 
+## Alerting
+
+Alerts should be managed by terraform, in code. The template provides some standard alerts that handle deviation of memory, errors, and throughput.
+
+Simple alerts can be done as follows
+
+1. By completing the [Bootstrapping Permissions](https://aplaceformom.atlassian.net/wiki/spaces/DPLAT/pages/3593076789/Self+Service+-+Getting+Started#Bootstrapping-Permissions)
+your app should permissions
+1. Modify the `infrastructure/alerts/terraform.tf` backend key to use your repository's name.
+1. Container metrics require filtering on the ECS cluster. If app not defined to `default` ecs cluster update to proper cluster
+1. Search for `apfm-nestjs-template` and replace with your app's name (repository's name)
+1. Search for `<INSERT_ALERT_POLICY_ID>` and replace with your team's [Alert Policy Id](https://onenr.io/0MR2x2P92QY)
+1. Search for `yourservicename` and replace with your repo's name without dashes (terraform resource names shouldn't have dashes)
+1. Search for `<INSERT_NR_GUID>` and replace with your Service APM Entity Guid
+
+This can be found by navigating to your service's Services - APM Dashboard
+Clicking the `...` and copying the Entity Guid
+
+As you find more alerts that make sense for your application they can be easily added by using the "New Alert Condition" found [here](https://onenr.io/0VwgEeLxMjJ).
+
+- Follow the guided steps to create an alert
+- After completing the steps, click "View As Code"
+- select Terraform
+
+![View As Code](./docs/images/NR_view_as_code.png)
+
+Note: The application will need to be deployed to production before the Entity Guid can be retrieved.
+
 ## Swagger Documentation
 
 The Swagger plugin is supported out of the box and is available at: [http://localhost:3000/api/documentation](http://localhost:3000/api/documentation)
