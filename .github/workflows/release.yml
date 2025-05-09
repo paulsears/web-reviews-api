@@ -1,0 +1,86 @@
+name: release
+
+on:
+  release:
+    types: [published, prereleased]
+
+concurrency:
+  group: release-${{ github.event.release.tag_name }}
+  cancel-in-progress: true
+
+jobs:
+  validate-tag:
+    uses: aplaceformom/github-action-semver-check/.github/workflows/semver-check.yml@v1.0.0
+    with:
+      release_version: ${{ github.event.release.tag_name }}
+      pre_release: ${{ github.event.release.prerelease }}
+
+  set-environment:
+    runs-on: ubuntu-latest
+    needs: validate-tag
+    outputs:
+      environment: ${{ steps.setenv.outputs.environment }}
+    steps:
+      - id: setenv
+        run: echo "environment=${{ github.event.release.prerelease && 'qa' || 'prod' }}" >> "$GITHUB_OUTPUT"
+
+  env-validation:
+    runs-on: ubuntu-latest
+    needs: set-environment
+    if: |
+      (github.event.release.prerelease && needs.set-environment.outputs.environment == 'qa') ||
+      (!github.event.release.prerelease && needs.set-environment.outputs.environment == 'prod')
+    steps:
+      - name: Continue with Environment
+        run: |
+          echo "Continuing with environment: ${{ needs.set-environment.outputs.environment }}"
+
+  build:
+    needs: [validate-tag, env-validation]
+    env:
+      NODE_VERSION: 22
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build NestJS Application
+        uses: ./.github/actions/build
+        with:
+          nodeVersion: ${{ env.NODE_VERSION }}
+          nodeAuthToken: ${{ secrets.NODE_AUTH_TOKEN }}
+          cache: "pnpm"
+          cache-key: build-${{ github.job }}-pnpm
+
+      - name: CI Checks
+        uses: ./.github/actions/ci-checks
+        with:
+          nodeVersion: ${{ env.NODE_VERSION }}
+          nodeAuthToken: ${{ secrets.NODE_AUTH_TOKEN }}
+          sonarToken: ${{ secrets.SONAR_TOKEN }}
+          sonarHostUrl: ${{ secrets.SONAR_HOST_URL }}
+          cache: "pnpm"
+
+  image:
+    uses: aplaceformom/workflows/.github/workflows/docker-build.yaml@main
+    needs: [build, set-environment, env-validation]
+    with:
+      env: ${{ needs.set-environment.outputs.environment }}
+      deploy-tag: ${{ github.ref_name }}
+      ecr-root: true
+      push: true
+      deployment-role: arn:aws:iam::373477481654:role/${{ github.event.repository.name }}-deploy
+    secrets:
+      build-args: |
+        NODE_AUTH_TOKEN=${{ secrets.NODE_AUTH_TOKEN }}
+        APP_BUILD=${{ github.sha }}
+        APP_VERSION=${{ github.ref_name }}
+
+  deploy:
+    uses: aplaceformom/ecs-deploy-action/.github/workflows/deploy-ecs.yml@v2.3.0
+    needs: [image, set-environment, env-validation]
+    with:
+      target-environment: ${{ needs.set-environment.outputs.environment }}
+      task-definition-file: infrastructure/tasks/task-definition.${{ needs.set-environment.outputs.environment }}.json
+      image-uri: 373477481654.dkr.ecr.us-west-2.amazonaws.com/${{ github.event.repository.name }}:${{ github.ref_name }}
+      ecs-service: ${{ github.event.repository.name }}
+      ecs-cluster: default
