@@ -36,18 +36,20 @@ jobs:
       deploy-tag: ${{github.sha}}
       ecr-root: true
       push: true
-      deployment-role: "arn:aws:iam::373477481654:role/${{github.event.repository.name}}-deploy"
+      deployment-role: "arn:aws:iam::373477481654:role/${YOUR_SERVICE_NAME}-${DEPLOYMENT_SLOT}-deploy"
+      deployment-slot: ${DEPLOYMENT_SLOT}
     secrets:
       build-args: |
         NODE_AUTH_TOKEN=${{secrets.NODE_AUTH_TOKEN}}
         APP_BUILD=${{github.sha}}
         APP_VERSION=${{github.sha}}
   deploy:
-    uses: aplaceformom/ecs-deploy-action/.github/workflows/deploy-ecs.yml@v1
+    uses: aplaceformom/ecs-deploy-action/.github/workflows/deploy-ecs-migrating.yml@v1
     needs: image
     with:
       target-environment: dev
       task-definition-file: infrastructure/tasks/task-definition.dev.json
-      image-uri: 373477481654.dkr.ecr.us-west-2.amazonaws.com/${{github.event.repository.name}}:${{github.sha}}
-      ecs-service: ${{github.event.repository.name}}
+      image-uri: 373477481654.dkr.ecr.us-west-2.amazonaws.com/${YOUR_SERVICE_NAME}-${DEPLOYMENT_SLOT}:${{github.sha}}
+      role-to-assume: ${YOUR_SERVICE_NAME}-${DEPLOYMENT_SLOT}
+      ecs-service: ${YOUR_SERVICE_NAME}-${DEPLOYMENT_SLOT}
       ecs-cluster: default

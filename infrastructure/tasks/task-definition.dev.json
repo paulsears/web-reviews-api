@@ -1,13 +1,13 @@
 {
   "containerDefinitions": [
     {
-      "name": "${YOUR_SERVICE_NAME}",
+      "name": "${YOUR_SERVICE_NAME}-${DEPLOYMENT_SLOT}",
       "image": "latest",
       "cpu": 512,
       "memory": 1024,
       "portMappings": [
         {
-          "name": "${YOUR_SERVICE_NAME}",
+          "name": "${YOUR_SERVICE_NAME}-${DEPLOYMENT_SLOT}",
           "containerPort": 4000,
           "hostPort": 4000,
           "protocol": "tcp"
@@ -110,8 +110,8 @@
     "cpuArchitecture": "X86_64",
     "operatingSystemFamily": "LINUX"
   },
-  "family": "${YOUR_SERVICE_NAME}",
-  "taskRoleArn": "arn:aws:iam::146283654498:role/${YOUR_SERVICE_NAME}-task-role",
+  "family": "${YOUR_SERVICE_NAME}-${DEPLOYMENT_SLOT}",
+  "taskRoleArn": "arn:aws:iam::146283654498:role/${YOUR_SERVICE_NAME}-${DEPLOYMENT_SLOT}-task-role",
   "executionRoleArn": "arn:aws:iam::146283654498:role/ecsTaskExecutionRoleDefault",
   "networkMode": "awsvpc",
 
