@@ -176,6 +176,20 @@ class constructor:
 - `NEW_RELIC_ERROR_COLLECTOR_IGNORE_ERROR_CODES`: Which API Status codes NewRelic will alert as Errors. It is RECOMMENDED that this be set to ignore 4xx errors, which are client errors.
   - Recommendation: `400, 401, 402, 403, 404, 405, 406, 408, 409, 410, 411, 412, 413, 414, 415, 416, 417, 418, 429`
 
+### ResponseDecorator
+
+By default an additional metadata object similar to the below is being added to all responses by the response-decorator middleware.
+
+```json
+{"meta":{"build":"0c856c28","name":"cresta-proxy","version":"rc-1.0.5","time":1,"time
+stamp":"2025-05-14T16:34:58.664Z"}}
+```
+
+This information helps with debugging and understanding which version of the service is impacted by a particular issue.
+
+Should you have routes that you would like to exclude from this handling (i.e. a WebSocket, or Server-Sent Events endpoint) you can add
+these paths to config.responseDecorator.ignoreUrlPaths as an array of strings. This will remove them from handling by the decorator.
+
 ## Running
 
 To run the NestJS application locally:
@@ -210,7 +224,7 @@ Alerts should be managed by terraform, in code. The template provides some stand
 Simple alerts can be done as follows
 
 1. By completing the [Bootstrapping Permissions](https://aplaceformom.atlassian.net/wiki/spaces/DPLAT/pages/3593076789/Self+Service+-+Getting+Started#Bootstrapping-Permissions)
-your app should permissions
+   your app should permissions
 1. Modify the `infrastructure/alerts/terraform.tf` backend key to use your repository's name.
 1. Container metrics require filtering on the ECS cluster. If app not defined to `default` ecs cluster update to proper cluster
 1. Search for `apfm-nestjs-template` and replace with your app's name (repository's name)
@@ -329,7 +343,7 @@ The `.npmrc` file contains the following
 - Copy the generated token to your clipboard, you won't be able to retrieve it again.
 - On the token list page, click the Enable SSO button and authorize A Place for Mom.
 - Add the following line to your `.bashrc` or `.zshrc` file (located in your home directory, the prefixed `.` means the files are hidden, so you may not be able to navigate to
-them normally):
+  them normally):
 
 ```shell
 export NODE_AUTH_TOKEN="YourTokenHere"
@@ -356,9 +370,9 @@ You should see your token printed in the terminal.
 ### Tokens in GitHub Actions
 
 Organization secrets are used to provide GitHub Actions with the necessary
- access. The same `NODE_AUTH_TOKEN` is available in GitHub Actions, allowing
- the `.npmrc` configuration to work both locally and in Actions, provided the
- steps outlined in the above guide are followed.
+access. The same `NODE_AUTH_TOKEN` is available in GitHub Actions, allowing
+the `.npmrc` configuration to work both locally and in Actions, provided the
+steps outlined in the above guide are followed.
 
 In workflow files, secrets can be accessed in the workflow YAML using `${{ secrets.NODE_AUTH_TOKEN }}`.
 Configuring repository secrets or viewing organization secrets can be done by navigating to Settings > Security > Actions.

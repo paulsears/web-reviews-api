@@ -24,6 +24,9 @@ export interface Config {
   apiVersion: string;
   logger: ApfmLoggerConfigOptions;
   expressLogger: ExpressMiddlewareOptions;
+  responseDecorator: {
+    ignoreUrlPaths: string[];
+  };
 }
 
 export const config: Config = {
@@ -40,5 +43,8 @@ export const config: Config = {
   },
   expressLogger: {
     ignoreUrlPaths: ["/ping", "/health"],
+  },
+  responseDecorator: {
+    ignoreUrlPaths: [],
   },
 };

@@ -28,7 +28,14 @@ export class ResponseDecorator<T> implements NestInterceptor<T, Response<T>>, Ex
     private readonly config: Config = applicationConfig,
   ) {}
 
-  public intercept(_context: ExecutionContext, next: CallHandler): Observable<any> {
+  public intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
+    const request = context.switchToHttp().getRequest();
+    const requestPath = request.url.split("?")[0];
+    const isIgnored = this.config.responseDecorator.ignoreUrlPaths.includes(requestPath);
+    if (isIgnored) {
+      return next.handle();
+    }
+
     const requestStartTime = this.dateTime.getDate();
 
     return next.handle().pipe(
