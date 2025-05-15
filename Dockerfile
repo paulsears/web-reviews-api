@@ -12,7 +12,9 @@ RUN corepack enable && corepack prepare pnpm --activate
 # Copy dependency manifests
 COPY package.json pnpm-lock.yaml ./
 COPY .npmrc .npmrc
-COPY --chown=node:node ./prisma ./prisma
+
+# This command will need to be run if this service uses prisma uncomment this line
+# COPY --chown=node:node ./prisma ./prisma
 
 # Use the NODE_AUTH_TOKEN during install
 ENV NODE_AUTH_TOKEN=${NODE_AUTH_TOKEN}
@@ -20,7 +22,11 @@ ENV NODE_AUTH_TOKEN=${NODE_AUTH_TOKEN}
 # Install all dependencies (including dev dependencies)
 RUN chown -R node:node /usr/src/app
 USER node
-RUN pnpm install --frozen-lockfile && pnpm run build:prisma
+
+RUN pnpm install --frozen-lockfile
+# If this service needs to use prisma, it will need to generate the schemas. The following
+# line will need to be uncommented.
+# RUN pnpm run build:prisma
 
 # Use a non-root user for security
 USER node

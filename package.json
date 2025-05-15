@@ -8,6 +8,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
+    "build:prisma": "pnpm prisma generate",
     "check-circular": "pnpm madge --circular ./dist",
     "format:check": "pnpm eslint .",
     "format:fix": "pnpm run format:check --fix",
