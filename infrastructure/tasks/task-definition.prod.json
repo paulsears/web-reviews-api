@@ -1,0 +1,119 @@
+{
+  "containerDefinitions": [
+    {
+      "name": "${YOUR_SERVICE_NAME}",
+      "image": "latest",
+      "cpu": 512,
+      "memory": 1024,
+      "portMappings": [
+        {
+          "name": "${YOUR_SERVICE_NAME}",
+          "containerPort": 4000,
+          "hostPort": 4000,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "environment": [
+        {
+          "name": "APP_ENV",
+          "value": "prod"
+        },
+        {
+          "name": "APP_NAME",
+          "value": "${YOUR_SERVICE_NAME}"
+        },
+        {
+          "name": "NEW_RELIC_APP_NAME",
+          "value": "${YOUR_SERVICE_NAME}-prod"
+        },
+        {
+          "name": "NEW_RELIC_LOG",
+          "value": "stdout"
+        },
+        {
+          "name": "NEW_RELIC_APPLICATION_LOGGING_FORWARDING_ENABLED",
+          "value": "true"
+        },
+        {
+          "name": "NEW_RELIC_DISTRIBUTED_TRACING_ENABLED",
+          "value": "false"
+        }
+      ],
+      "mountPoints": [],
+      "secrets": [
+        {
+          "name": "NEW_RELIC_LICENSE_KEY",
+          "valueFrom": "/aplaceformom/new-relic-key"
+        }
+      ],
+      "volumesFrom": [],
+      "linuxParameters": {
+        "initProcessEnabled": false
+      },
+      "startTimeout": 30,
+      "stopTimeout": 120,
+      "user": "0",
+      "privileged": false,
+      "readonlyRootFilesystem": false,
+      "interactive": false,
+      "pseudoTerminal": false,
+      "ulimits": [
+        {
+          "name": "nofile",
+          "softLimit": 65535,
+          "hardLimit": 65535
+        }
+      ],
+      "systemControls": []
+    },
+    {
+      "environment": [
+        {
+          "name": "NRIA_OVERRIDE_HOST_ROOT",
+          "value": ""
+        },
+        {
+          "name": "NRIA_IS_FORWARD_ONLY",
+          "value": "true"
+        },
+        {
+          "name": "FARGATE",
+          "value": "true"
+        },
+        {
+          "name": "NRIA_PASSTHROUGH_ENVIRONMENT",
+          "value": "ECS_CONTAINER_METADATA_URI,ECS_CONTAINER_METADATA_URI_V4,FARGATE"
+        },
+        {
+          "name": "NRIA_CUSTOM_ATTRIBUTES",
+          "value": "{\"nrDeployMethod\":\"downloadPage\"}"
+        }
+      ],
+      "secrets": [
+        {
+          "name": "NRIA_LICENSE_KEY",
+          "valueFrom": "/aplaceformom/new-relic-nri-key"
+        }
+      ],
+      "cpu": 256,
+      "memoryReservation": 512,
+      "image": "newrelic/nri-ecs:1.12.12",
+      "name": "newrelic-infra"
+    }
+  ],
+  "placementConstraints": [],
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "1024",
+  "memory": "2048",
+  "runtimePlatform": {
+    "cpuArchitecture": "X86_64",
+    "operatingSystemFamily": "LINUX"
+  },
+  "family": "${YOUR_SERVICE_NAME}",
+  "taskRoleArn": "arn:aws:iam::451834275279:role/${YOUR_SERVICE_NAME}-task-role",
+  "executionRoleArn": "arn:aws:iam::451834275279:role/ecsTaskExecutionRoleDefault",
+  "networkMode": "awsvpc",
+
+  "tags": []
+}
