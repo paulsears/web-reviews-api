@@ -1,5 +1,5 @@
 module "${YOUR_SERVICE_NAME}" {
-  source            = "git::git@github.com:aplaceformom/terraform-modules.git//modules/fargate-service?ref=v0.1.0"
+  source            = "git::git@github.com:aplaceformom/terraform-modules.git//modules/fargate-service?ref=v0.2.3"
   name              = "${YOUR_SERVICE_NAME}"
   cluster_name      = "default"
   container_port    = 4000

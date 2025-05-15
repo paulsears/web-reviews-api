@@ -43,7 +43,7 @@ jobs:
         APP_BUILD=${{github.sha}}
         APP_VERSION=${{github.sha}}
   deploy:
-    uses: aplaceformom/ecs-deploy-action/.github/workflows/deploy-ecs.yml@v1
+    uses: aplaceformom/ecs-deploy-action/.github/workflows/deploy-ecs.yml@v2.3.0
     needs: image
     with:
       target-environment: dev
