@@ -6,8 +6,9 @@ function validationErrorsToStringArray(errors: ValidationError[]): string[] {
     if (!e.constraints) {
       return;
     }
-    Object.keys(e.constraints).forEach((key) => {
-      errorStrings.push(e.constraints![key]); // eslint-disable-line @typescript-eslint/no-non-null-assertion
+
+    Object.values(e.constraints).forEach((message) => {
+      errorStrings.push(message);
     });
 
     if (e.children?.length) {
