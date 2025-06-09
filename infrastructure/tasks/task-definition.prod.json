@@ -38,6 +38,10 @@
         {
           "name": "NEW_RELIC_DISTRIBUTED_TRACING_ENABLED",
           "value": "false"
+        },
+        {
+          "name": "NEW_RELIC_ERROR_COLLECTOR_IGNORE_ERROR_CODES",
+          "value": "400,401,403,404,405,409,413,422,429"
         }
       ],
       "mountPoints": [],
