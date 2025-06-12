@@ -12,8 +12,8 @@ importers:
         specifier: ^0.0.2
         version: 0.0.2(@eslint/eslintrc@3.2.0)(@eslint/js@9.18.0)(@nestjs/common@10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@stylistic/eslint-plugin@2.13.0(eslint@9.18.0)(typescript@5.7.3))(@typescript-eslint/eslint-plugin@8.21.0(@typescript-eslint/parser@8.21.0(eslint@9.18.0)(typescript@5.7.3))(eslint@9.18.0)(typescript@5.7.3))(@vitest/eslint-plugin@1.1.25(@typescript-eslint/utils@8.24.1(eslint@9.18.0)(typescript@5.7.3))(eslint@9.18.0)(typescript@5.7.3)(vitest@2.1.9(@types/node@22.13.5)(terser@5.39.0)))(eslint-config-prettier@9.1.0(eslint@9.18.0))(eslint-plugin-markdownlint@0.6.0(eslint@9.18.0))(eslint-plugin-prettier@5.2.3(@types/eslint@9.6.1)(eslint-config-prettier@9.1.0(eslint@9.18.0))(eslint@9.18.0)(prettier@3.4.2))(eslint-plugin-yml@1.16.0(eslint@9.18.0))(eslint@9.18.0)(markdownlint@0.36.1)(prettier@3.4.2)(typescript-eslint@8.21.0(eslint@9.18.0)(typescript@5.7.3))
       '@aplaceformom/apfm-http-client':
-        specifier: ^0.0.1
-        version: 0.0.1(@eslint/eslintrc@3.2.0)(@eslint/js@9.18.0)(@nestjs/common@10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@stylistic/eslint-plugin@2.13.0(eslint@9.18.0)(typescript@5.7.3))(@typescript-eslint/eslint-plugin@8.21.0(@typescript-eslint/parser@8.21.0(eslint@9.18.0)(typescript@5.7.3))(eslint@9.18.0)(typescript@5.7.3))(@vitest/eslint-plugin@1.1.25(@typescript-eslint/utils@8.24.1(eslint@9.18.0)(typescript@5.7.3))(eslint@9.18.0)(typescript@5.7.3)(vitest@2.1.9(@types/node@22.13.5)(terser@5.39.0)))(eslint-config-prettier@9.1.0(eslint@9.18.0))(eslint-plugin-markdownlint@0.6.0(eslint@9.18.0))(eslint-plugin-prettier@5.2.3(@types/eslint@9.6.1)(eslint-config-prettier@9.1.0(eslint@9.18.0))(eslint@9.18.0)(prettier@3.4.2))(eslint-plugin-yml@1.16.0(eslint@9.18.0))(eslint@9.18.0)(markdownlint@0.36.1)(prettier@3.4.2)(typescript-eslint@8.21.0(eslint@9.18.0)(typescript@5.7.3))
+        specifier: ^0.0.4
+        version: 0.0.4(@eslint/eslintrc@3.2.0)(@eslint/js@9.18.0)(@nestjs/common@10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@stylistic/eslint-plugin@2.13.0(eslint@9.18.0)(typescript@5.7.3))(@typescript-eslint/eslint-plugin@8.21.0(@typescript-eslint/parser@8.21.0(eslint@9.18.0)(typescript@5.7.3))(eslint@9.18.0)(typescript@5.7.3))(@vitest/eslint-plugin@1.1.25(@typescript-eslint/utils@8.24.1(eslint@9.18.0)(typescript@5.7.3))(eslint@9.18.0)(typescript@5.7.3)(vitest@2.1.9(@types/node@22.13.5)(terser@5.39.0)))(eslint-config-prettier@9.1.0(eslint@9.18.0))(eslint-plugin-markdownlint@0.6.0(eslint@9.18.0))(eslint-plugin-prettier@5.2.3(@types/eslint@9.6.1)(eslint-config-prettier@9.1.0(eslint@9.18.0))(eslint@9.18.0)(prettier@3.4.2))(eslint-plugin-yml@1.16.0(eslint@9.18.0))(eslint@9.18.0)(markdownlint@0.36.1)(prettier@3.4.2)(typescript-eslint@8.21.0(eslint@9.18.0)(typescript@5.7.3))
       '@aplaceformom/apfm-logger-typescript':
         specifier: ^0.0.3
         version: 0.0.3(@nestjs/common@10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))
@@ -149,8 +149,8 @@ packages:
     peerDependencies:
       '@nestjs/common': ^10.4.15
 
-  '@aplaceformom/apfm-http-client@0.0.1':
-    resolution: {integrity: sha512-0jQj318NljgcnF+V9/v24R16XasyK3BuioymVLKm1tcecD34htbeQO6GZzjuDyv7uE+J6tEN1106yIBqBpab/A==, tarball: https://npm.pkg.github.com/download/@aplaceformom/apfm-http-client/0.0.1/cfc187a557215ea5684e539235ddc65416b91761}
+  '@aplaceformom/apfm-http-client@0.0.4':
+    resolution: {integrity: sha512-vCY0DgGxF9T3o0e99XSzKfn0WysqMwDZue0WlFmDrqIcPPxyhggcVz+IQJUkRWY0kmYiqch7c1n8dRXIgYLYuA==, tarball: https://npm.pkg.github.com/download/@aplaceformom/apfm-http-client/0.0.4/302084cf08f8be33aa87db6f2ac9b23842a3da3d}
     peerDependencies:
       '@nestjs/common': ^10.4.15
 
@@ -159,10 +159,8 @@ packages:
     peerDependencies:
       '@nestjs/common': ^10.4.15
 
-  '@aplaceformom/apfm-logger-typescript@0.0.3-beta.96729920':
-    resolution: {integrity: sha512-nM73+JoyHeCJsr4SoacCPOwVq0uRMth3v/Lk3k9ZlMpUHeVpQOkzSmOPf9g3vaYu9VuDE4oSGCjSYBcoKXR/qw==, tarball: https://npm.pkg.github.com/download/@aplaceformom/apfm-logger-typescript/0.0.3-beta.96729920/e43af420ab9b0af9b169fa5c5a37dc04a96e16d4}
-    peerDependencies:
-      '@nestjs/common': ^10.4.15
+  '@aplaceformom/apfm-logger-typescript@0.0.4':
+    resolution: {integrity: sha512-uZgB6qKQLIed3Wh9Q5trDn248epPFVEsluhYTbvYuwmoR9aW4NdrqsacDVbvfYDtAX8n1HVKwAHbX4pfQigKpQ==, tarball: https://npm.pkg.github.com/download/@aplaceformom/apfm-logger-typescript/0.0.4/83adbec55ddc109558317bc61aecd62b583c0789}
 
   '@aplaceformom/mockfill@0.0.1':
     resolution: {integrity: sha512-QpIV07DWCWxDCGf61i/3vP+HZBgZQi7kZVvxoJsbjVKHtmN25H2Q6QYuNHcuZ9oF8iZVi6lh5Ywci/CHgo8pfQ==, tarball: https://npm.pkg.github.com/download/@aplaceformom/mockfill/0.0.1/d651786c5554cea2e6c7169fda9d05dab3c0a4f2}
@@ -3579,10 +3577,10 @@ snapshots:
       - prettier
       - typescript-eslint
 
-  '@aplaceformom/apfm-http-client@0.0.1(@eslint/eslintrc@3.2.0)(@eslint/js@9.18.0)(@nestjs/common@10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@stylistic/eslint-plugin@2.13.0(eslint@9.18.0)(typescript@5.7.3))(@typescript-eslint/eslint-plugin@8.21.0(@typescript-eslint/parser@8.21.0(eslint@9.18.0)(typescript@5.7.3))(eslint@9.18.0)(typescript@5.7.3))(@vitest/eslint-plugin@1.1.25(@typescript-eslint/utils@8.24.1(eslint@9.18.0)(typescript@5.7.3))(eslint@9.18.0)(typescript@5.7.3)(vitest@2.1.9(@types/node@22.13.5)(terser@5.39.0)))(eslint-config-prettier@9.1.0(eslint@9.18.0))(eslint-plugin-markdownlint@0.6.0(eslint@9.18.0))(eslint-plugin-prettier@5.2.3(@types/eslint@9.6.1)(eslint-config-prettier@9.1.0(eslint@9.18.0))(eslint@9.18.0)(prettier@3.4.2))(eslint-plugin-yml@1.16.0(eslint@9.18.0))(eslint@9.18.0)(markdownlint@0.36.1)(prettier@3.4.2)(typescript-eslint@8.21.0(eslint@9.18.0)(typescript@5.7.3))':
+  '@aplaceformom/apfm-http-client@0.0.4(@eslint/eslintrc@3.2.0)(@eslint/js@9.18.0)(@nestjs/common@10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@stylistic/eslint-plugin@2.13.0(eslint@9.18.0)(typescript@5.7.3))(@typescript-eslint/eslint-plugin@8.21.0(@typescript-eslint/parser@8.21.0(eslint@9.18.0)(typescript@5.7.3))(eslint@9.18.0)(typescript@5.7.3))(@vitest/eslint-plugin@1.1.25(@typescript-eslint/utils@8.24.1(eslint@9.18.0)(typescript@5.7.3))(eslint@9.18.0)(typescript@5.7.3)(vitest@2.1.9(@types/node@22.13.5)(terser@5.39.0)))(eslint-config-prettier@9.1.0(eslint@9.18.0))(eslint-plugin-markdownlint@0.6.0(eslint@9.18.0))(eslint-plugin-prettier@5.2.3(@types/eslint@9.6.1)(eslint-config-prettier@9.1.0(eslint@9.18.0))(eslint@9.18.0)(prettier@3.4.2))(eslint-plugin-yml@1.16.0(eslint@9.18.0))(eslint@9.18.0)(markdownlint@0.36.1)(prettier@3.4.2)(typescript-eslint@8.21.0(eslint@9.18.0)(typescript@5.7.3))':
     dependencies:
       '@aplaceformom/apfm-base-lint': 1.0.5(@eslint/eslintrc@3.2.0)(@eslint/js@9.18.0)(@stylistic/eslint-plugin@2.13.0(eslint@9.18.0)(typescript@5.7.3))(@typescript-eslint/eslint-plugin@8.21.0(@typescript-eslint/parser@8.21.0(eslint@9.18.0)(typescript@5.7.3))(eslint@9.18.0)(typescript@5.7.3))(@vitest/eslint-plugin@1.1.25(@typescript-eslint/utils@8.24.1(eslint@9.18.0)(typescript@5.7.3))(eslint@9.18.0)(typescript@5.7.3)(vitest@2.1.9(@types/node@22.13.5)(terser@5.39.0)))(eslint-config-prettier@9.1.0(eslint@9.18.0))(eslint-plugin-markdownlint@0.6.0(eslint@9.18.0))(eslint-plugin-prettier@5.2.3(@types/eslint@9.6.1)(eslint-config-prettier@9.1.0(eslint@9.18.0))(eslint@9.18.0)(prettier@3.4.2))(eslint-plugin-yml@1.16.0(eslint@9.18.0))(eslint@9.18.0)(markdownlint@0.36.1)(prettier@3.4.2)(typescript-eslint@8.21.0(eslint@9.18.0)(typescript@5.7.3))
-      '@aplaceformom/apfm-logger-typescript': 0.0.3-beta.96729920(@nestjs/common@10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))
+      '@aplaceformom/apfm-logger-typescript': 0.0.4
       '@nestjs/common': 10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       axios: 1.7.9
     transitivePeerDependencies:
@@ -3608,9 +3606,8 @@ snapshots:
       pino: 9.6.0
       url: 0.11.4
 
-  '@aplaceformom/apfm-logger-typescript@0.0.3-beta.96729920(@nestjs/common@10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))':
+  '@aplaceformom/apfm-logger-typescript@0.0.4':
     dependencies:
-      '@nestjs/common': 10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       on-finished: 2.4.1
       pino: 9.6.0
       url: 0.11.4
