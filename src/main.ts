@@ -18,12 +18,16 @@ const setupSwagger = (app: INestApplication): void => {
     .build();
 
   const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup(applicationConfig.swaggerRoute, app, document);
+  SwaggerModule.setup(applicationConfig.swaggerRoute, app, document, {
+    swaggerOptions: {
+      persistAuthorization: true,
+    },
+  });
 };
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule, {
-    logger: ["error", "debug", "log"],
+    logger: ["error", "debug", "log", "warn"],
   });
 
   const config = applicationConfig;

@@ -5,7 +5,8 @@
       {
         "name": "@nestjs/swagger/plugin",
         "options": {
-          "classValidatorShim": true
+          "classValidatorShim": true,
+          "introspectComments": true
         }
       }
     ],
