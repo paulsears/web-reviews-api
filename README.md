@@ -325,6 +325,178 @@ three different values corresponding to each environment for your workflows.
 
 For full details on this action including additional inputs you can reference the [New Relic Documentation](https://github.com/newrelic/deployment-marker-action).
 
+## Reviews API
+
+This application includes a Reviews API that allows you to retrieve agency reviews by provider IDs or APFM Property IDs (YGL IDs) from a MongoDB database. The API uses a semantic layer architecture where agency metadata is stored separately from individual reviews.
+
+### Environment Variables
+
+The following environment variables are required for MongoDB connectivity:
+
+```shell
+MONGODB_CONNECTION_STRING=mongodb://localhost:27017  # MongoDB connection string
+MONGODB_DATABASE_NAME=reviews_db                     # MongoDB database name
+```
+
+### API Architecture
+
+The API uses a two-tier architecture:
+
+1. **Agency Semantic Layer**: Contains aggregated agency information including AI-generated summaries
+2. **Review Collections**: Contains individual reviews spread across 3 different MongoDB collections
+
+### API Endpoints
+
+#### GET /reviews
+
+Retrieves agency reviews filtered by provider IDs or APFM Property IDs. At least one filter must be provided.
+
+**Query Parameters:**
+
+- `providerIds` (optional): Array of numeric provider IDs to filter reviews by
+- `apfmPropertyIds` (optional): Array of numeric APFM Property IDs (YGL IDs) to filter reviews by
+
+**Example requests:**
+
+```bash
+# Get reviews by provider IDs (array format)
+curl "http://localhost:3000/reviews?providerIds=924&providerIds=1234"
+
+# Get reviews by provider IDs (comma-separated format)
+curl "http://localhost:3000/reviews?providerIds=924,1234"
+
+# Get reviews by APFM Property IDs (array format)
+curl "http://localhost:3000/reviews?apfmPropertyIds=123203&apfmPropertyIds=5678"
+
+# Get reviews by APFM Property IDs (comma-separated format)
+curl "http://localhost:3000/reviews?apfmPropertyIds=123203,5678"
+
+# Get reviews by both provider and APFM Property IDs
+curl "http://localhost:3000/reviews?providerIds=924&apfmPropertyIds=123203"
+```
+
+#### GET /reviews/by-provider
+
+Retrieves agency reviews filtered by provider IDs only.
+
+**Query Parameters:**
+
+- `providerIds` (required): Array of numeric provider IDs to filter reviews by
+
+**Example request:**
+
+```bash
+curl "http://localhost:3000/reviews/by-provider?providerIds=924&providerIds=1234"
+```
+
+#### GET /reviews/by-apfm-property
+
+Retrieves agency reviews filtered by APFM Property IDs only.
+
+**Query Parameters:**
+
+- `apfmPropertyIds` (required): Array of numeric APFM Property IDs to filter reviews by
+
+**Example request:**
+
+```bash
+curl "http://localhost:3000/reviews/by-apfm-property?apfmPropertyIds=123203&apfmPropertyIds=5678"
+```
+
+### Response Format
+
+All endpoints return a consistent response format that includes both agency metadata and individual reviews:
+
+```json
+{
+  "agencies": [
+    {
+      "agencyInfo": {
+        "id": "68d61bfee00eb12c6988118a",
+        "companyId": 487269,
+        "providerId": 924,
+        "apfmPropertyId": 123203,
+        "totalReviews": 3,
+        "averageRating": 5,
+        "aiSummary": "The agency provides reliable care with a great atmosphere and professional staff.",
+        "aiHighlights": [
+          "Quick service",
+          "Professional staff",
+          "Friendly caregivers",
+          "Reliable care"
+        ],
+        "aiLastUpdated": "2025-09-26T04:52:14.225Z",
+        "aiReviewCount": 3,
+        "lastUpdated": "2025-09-26T04:52:14.225Z",
+        "createdAt": "2025-09-26T04:52:14.225Z"
+      },
+      "reviews": [
+        {
+          "id": "review-id-1",
+          "providerId": "924",
+          "yglId": "123203",
+          "title": "Great service",
+          "content": "This provider delivered excellent service...",
+          "rating": 5,
+          "author": "John Doe",
+          "createdAt": "2024-01-01T00:00:00.000Z",
+          "updatedAt": "2024-01-01T00:00:00.000Z"
+        }
+      ]
+    }
+  ],
+  "totalAgencies": 1,
+  "totalReviews": 1
+}
+```
+
+### MongoDB Collection Structure
+
+#### Agency Semantic Layer Collection (`agency_semantic_layer`)
+
+Contains aggregated agency information with AI-generated insights:
+
+```javascript
+{
+  _id: ObjectId("..."),                    // MongoDB document ID
+  companyId: 487269,                       // Company identifier
+  providerId: 924,                         // Provider identifier
+  apfmPropertyId: 123203,                  // APFM Property ID (YGL ID)
+  totalReviews: 3,                         // Total number of reviews
+  averageRating: 5,                        // Average rating across all reviews
+  aiSummary: "string",                     // AI-generated summary
+  aiHighlights: ["string"],                // AI-generated highlights array
+  aiLastUpdated: Date,                     // AI analysis last update timestamp
+  aiReviewCount: 3,                        // Number of reviews used for AI analysis
+  lastUpdated: Date,                       // Record last update timestamp
+  createdAt: Date                          // Record creation timestamp
+}
+```
+
+#### Review Collections (`reviews_collection_1`, `reviews_collection_2`, `reviews_collection_3`)
+
+Individual reviews are stored across 3 collections with the following structure:
+
+```javascript
+{
+  _id: ObjectId("..."),           // MongoDB document ID
+  providerId: 924,                // Provider identifier (numeric)
+  apfmPropertyId: 123203,         // APFM Property ID (numeric)
+  companyId: 487269,              // Company identifier (may vary by collection)
+  title: "string",                // Review title
+  content: "string",              // Review content/body
+  rating: 1-5,                    // Numeric rating (1-5)
+  author: "string",               // Review author name
+  createdAt: Date,                // Creation timestamp
+  updatedAt: Date                 // Last update timestamp
+}
+```
+
+### API Documentation
+
+When running the application locally, you can access the interactive Swagger documentation at:
+`http://localhost:3000/api/documentation`
+
 ## Tokens
 
 ### Local Node Auth Token

@@ -14,6 +14,7 @@ const setupSwagger = (app: INestApplication): void => {
     .setDescription("")
     .setVersion("1.0.0")
     .addTag("api")
+    .addTag("reviews")
     .addTag("status")
     .build();
 
@@ -45,4 +46,4 @@ async function bootstrap(): Promise<void> {
   await app.listen(config.port);
 }
 
-bootstrap().catch((e) => console.error("Unable to start server", e)); // eslint-disable-line
+bootstrap().catch((e) => console.error("Unable to start server", e));  

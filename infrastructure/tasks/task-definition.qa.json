@@ -38,6 +38,10 @@
         {
           "name": "NEW_RELIC_DISTRIBUTED_TRACING_ENABLED",
           "value": "false"
+        },
+        {
+          "name": "MONGODB_DATABASE_NAME",
+          "value": "reviews_db"
         }
       ],
       "mountPoints": [],
@@ -45,6 +49,10 @@
         {
           "name": "NEW_RELIC_LICENSE_KEY",
           "valueFrom": "/aplaceformom/new-relic-key"
+        },
+        {
+          "name": "MONGODB_CONNECTION_STRING",
+          "valueFrom": "/${YOUR_SERVICE_NAME}-qa/secrets/mongodb_connection_string"
         }
       ],
       "volumesFrom": [],

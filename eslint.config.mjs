@@ -1,3 +1,3 @@
-import baseLintConfig from "@aplaceformom/apfm-base-lint";
+const baseLintConfig = require("@aplaceformom/apfm-base-lint");
 
-export default [...baseLintConfig.default];
+module.exports = [...baseLintConfig.default];

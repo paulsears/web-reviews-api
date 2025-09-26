@@ -42,6 +42,10 @@
         {
           "name": "NEW_RELIC_ERROR_COLLECTOR_IGNORE_ERROR_CODES",
           "value": "400,401,403,404,405,409,413,422,429"
+        },
+        {
+          "name": "MONGODB_DATABASE_NAME",
+          "value": "reviews_db"
         }
       ],
       "mountPoints": [],
@@ -49,6 +53,10 @@
         {
           "name": "NEW_RELIC_LICENSE_KEY",
           "valueFrom": "/aplaceformom/new-relic-key"
+        },
+        {
+          "name": "MONGODB_CONNECTION_STRING",
+          "valueFrom": "/${YOUR_SERVICE_NAME}-prod/secrets/mongodb_connection_string"
         }
       ],
       "volumesFrom": [],

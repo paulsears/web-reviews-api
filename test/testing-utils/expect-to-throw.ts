@@ -14,5 +14,5 @@ export async function expectToThrow<T = Error>(promise: Promise<any>, msg?: stri
     }
   }
   expect(err).toBeDefined();
-  return err!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
+  return err!;  
 }
